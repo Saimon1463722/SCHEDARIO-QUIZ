@@ -540,6 +540,7 @@ body.theming, body.theming *{transition:background-color .35s ease,color .35s ea
 .result{position:relative;overflow:hidden;background:linear-gradient(175deg,color-mix(in srgb,var(--accent) 8%,var(--surface)),var(--surface) 55%)}
 .ring::before{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--grad);filter:blur(26px);opacity:.28}
 .ring .val{stroke:url(#ring-g)}
+.ring .val[stroke-dasharray^="0.0 "]{display:none}
 .ring stop:first-child{stop-color:var(--accent)}
 .ring stop:last-child{stop-color:var(--accent-2)}
 .ring b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -679,6 +680,194 @@ body.dropping .bk-drop{display:flex;animation:fadeIn .2s ease}
 @keyframes drawck{from{stroke-dashoffset:40}}
 @media (max-width:360px){.bk-actions{grid-template-columns:1fr}}
 
+/* Home: hero, KPIs, project cards, onboarding */
+:root{--hero-a:#2251A8;--hero-b:#6A45D1}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--hero-a:#233F7E;--hero-b:#4A3399}}
+:root[data-theme="dark"]{--hero-a:#233F7E;--hero-b:#4A3399}
+.hero{position:relative;overflow:hidden;border-radius:24px;padding:22px 20px;color:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;
+  background:radial-gradient(420px 220px at 110% -20%,rgba(255,255,255,.22),transparent 60%),radial-gradient(300px 200px at -10% 120%,rgba(255,255,255,.12),transparent 60%),linear-gradient(135deg,var(--hero-a),var(--hero-b));box-shadow:0 22px 44px -24px color-mix(in srgb,var(--hero-a) 80%,transparent)}
+.hero::after{content:"";position:absolute;right:-60px;bottom:-80px;width:220px;height:220px;border-radius:50%;border:28px solid rgba(255,255,255,.06);pointer-events:none}
+.hero > *{position:relative;z-index:1}
+.hero-date{font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;opacity:.8}
+.hero h1{font-size:2rem;margin:4px 0 6px;color:#fff}
+.hero p{opacity:.92;max-width:44ch;font-size:.98rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero-btn{background:#fff;color:var(--hero-a);border-color:transparent;box-shadow:0 10px 22px -12px rgba(0,0,0,.55);max-width:100%}
+.hero-btn:hover{border-color:transparent;box-shadow:0 14px 26px -12px rgba(0,0,0,.6)}
+.hero-ghost{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff}
+.hero-ghost:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.6)}
+.hero-side{display:flex;flex-direction:column;align-items:center;gap:14px}
+.streak{width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;text-align:center}
+.streak .icon{width:22px;height:22px;opacity:.65}
+.streak.on .icon{color:#FFC46B;fill:color-mix(in srgb,#FFC46B 45%,transparent);opacity:1;animation:flicker 1.8s ease-in-out infinite}
+.streak b{font-family:var(--display);font-size:1.75rem;margin-top:3px}
+.streak span{font-size:.64rem;opacity:.85;margin-top:3px}
+@keyframes flicker{0%,100%{transform:scale(1) rotate(0)}30%{transform:scale(1.08) rotate(-4deg)}60%{transform:scale(.97) rotate(3deg)}}
+.week{display:grid;grid-template-columns:repeat(7,12px);gap:5px;align-items:end}
+.wk{display:flex;flex-direction:column;align-items:center;gap:5px}
+.wbar{display:block;width:12px;border-radius:4px;background:rgba(255,255,255,.28);transform-origin:bottom}
+.wk.on .wbar{background:rgba(255,255,255,.7)}
+.wk.today .wbar{background:#fff;box-shadow:0 0 12px rgba(255,255,255,.6)}
+.wk small{font-size:.6rem;font-weight:700;opacity:.7;line-height:1}
+.wk.today small{opacity:1}
+.enter .wbar{animation:barUp .7s var(--ease) backwards}
+.enter .wk:nth-child(2) .wbar{animation-delay:.05s}.enter .wk:nth-child(3) .wbar{animation-delay:.1s}.enter .wk:nth-child(4) .wbar{animation-delay:.15s}
+.enter .wk:nth-child(5) .wbar{animation-delay:.2s}.enter .wk:nth-child(6) .wbar{animation-delay:.25s}.enter .wk:nth-child(7) .wbar{animation-delay:.3s}
+@keyframes barUp{from{transform:scaleY(0)}}
+@media (max-width:540px){
+  .hero{grid-template-columns:minmax(0,1fr);padding:20px 18px;gap:16px}
+  .hero h1{font-size:1.75rem}
+  .hero-side{flex-direction:row;justify-content:space-between;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:10px 14px}
+  .streak{width:auto;height:auto;border:0;background:none;flex-direction:row;gap:7px;text-align:left}
+  .streak b{margin:0;font-size:1.5rem}
+  .streak span{margin:0;font-size:.74rem;max-width:7ch;line-height:1.15}
+}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:600px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{all:unset;box-sizing:border-box;position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow);display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;align-items:center;min-width:0}
+.kpi > .icon{grid-row:1 / 3;width:38px;height:38px;padding:9px;border-radius:11px;background:color-mix(in srgb,var(--kc) 14%,transparent);color:var(--kc)}
+.kpi b{font-family:var(--display);font-size:1.4rem;line-height:1.1;color:var(--ink)}
+.kpi span{font-size:.76rem;color:var(--muted);line-height:1.25}
+.kpi.kq{--kc:var(--accent)}.kpi.ka{--kc:var(--ok)}.kpi.ke{--kc:var(--ko)}.kpi.kd{--kc:var(--t3)}
+button.kpi{cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s,border-color .2s}
+button.kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--kc) 40%,var(--line))}
+button.kpi:active{transform:scale(.98)}
+button.kpi:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button.kpi::after{content:"›";position:absolute;right:10px;top:8px;font-size:1.1rem;color:var(--faint);transition:transform .2s}
+button.kpi:hover::after{transform:translateX(3px);color:var(--kc)}
+.enter .kpis > *{animation:cardIn .45s var(--ease) backwards}
+.enter .kpis > :nth-child(2){animation-delay:.05s}.enter .kpis > :nth-child(3){animation-delay:.1s}.enter .kpis > :nth-child(4){animation-delay:.15s}
+.sechead{display:flex;align-items:center;gap:10px}
+.sechead .count{font-size:.8rem;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.pcard{gap:12px}
+.pgo{flex:none;margin-left:auto;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:var(--faint);transition:background .2s,color .2s,transform .3s var(--spring)}
+.pgo .icon{width:18px;height:18px}
+.pcard:hover .pgo{background:var(--dc);color:var(--on-tag);transform:translateX(2px)}
+.pmeter{display:flex;align-items:center;gap:10px}
+.pmeter .meter{flex:1;margin:0}
+.pmeter b{font-family:var(--display);font-size:.98rem;min-width:3.2ch;text-align:right}
+.pstats{display:flex;gap:6px;flex-wrap:wrap}
+.pstats span{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;font-weight:700;color:var(--muted);background:var(--surface-2);border-radius:999px;padding:4px 9px}
+.pstats .icon{width:14px;height:14px}
+.pstats .ko{color:var(--ko);background:var(--ko-soft)}
+.pstats .due{color:var(--accent);background:var(--accent-soft)}
+.onboard{background:linear-gradient(170deg,color-mix(in srgb,var(--accent) 7%,var(--surface)),var(--surface) 60%);border:1px solid var(--line);border-radius:20px;padding:28px 22px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;box-shadow:var(--shadow)}
+.onboard p{max-width:46ch}
+.onboard .row{justify-content:center}
+.ob-art{position:relative;width:132px;height:96px;margin-bottom:4px}
+.ob-art span{position:absolute;left:30px;top:10px;width:72px;height:80px;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .5s var(--spring)}
+.ob-art span:nth-child(1){background:color-mix(in srgb,var(--t4) 22%,var(--surface));transform:rotate(-14deg) translateX(-22px)}
+.ob-art span:nth-child(2){background:color-mix(in srgb,var(--t2) 22%,var(--surface));transform:rotate(12deg) translateX(22px)}
+.ob-art span:nth-child(3){background:var(--grad);border-color:transparent;display:grid;place-items:center;color:var(--accent-ink)}
+.ob-art span:nth-child(3) .icon{width:30px;height:30px;stroke-width:2.6}
+.onboard:hover .ob-art span:nth-child(1){transform:rotate(-20deg) translateX(-30px)}
+.onboard:hover .ob-art span:nth-child(2){transform:rotate(18deg) translateX(30px)}
+.onboard:hover .ob-art span:nth-child(3){transform:translateY(-4px)}
+.helpcta{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s var(--ease),box-shadow .25s,border-color .2s}
+.helpcta:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.helpcta:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.helpcta b{display:block}
+.helpcta small{display:block;font-size:.84rem;color:var(--muted)}
+.hc-ico{width:42px;height:42px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.3rem;transition:transform .4s var(--spring)}
+.helpcta:hover .hc-ico{transform:rotate(-12deg) scale(1.08);background:var(--grad);color:var(--accent-ink)}
+.helpcta .chev{color:var(--faint);transition:transform .2s}
+.helpcta:hover .chev{transform:translateX(3px);color:var(--accent)}
+.foot{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 16px;font-size:.8rem;color:var(--faint);padding-top:14px;border-top:1px solid var(--line)}
+.foot > span:not(.sync){display:inline-flex;align-items:center;gap:6px}
+.foot > span:not(.sync) + span:not(.sync)::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--line-2);margin-right:10px}
+.btn.copied{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.btn.primary.copied{background:var(--ok);color:var(--ok-ink)}
+.btn.copied .icon{animation:iconIn .4s var(--spring)}
+
+/* Help */
+.helphero{position:relative;overflow:hidden;border-radius:22px;padding:22px 20px;color:#fff;display:flex;gap:16px;align-items:center;background:radial-gradient(360px 200px at 100% 0,rgba(255,255,255,.2),transparent 60%),linear-gradient(135deg,var(--hero-a),var(--hero-b));box-shadow:0 22px 44px -24px color-mix(in srgb,var(--hero-a) 80%,transparent)}
+.helphero h1{color:#fff}
+.helphero p{opacity:.9;margin-top:4px;max-width:52ch}
+.hh-ico{flex:none;width:58px;height:58px;border-radius:18px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;font-family:var(--display);font-size:2rem;font-weight:700}
+.enter .hh-ico{animation:iconIn .6s var(--spring) .1s backwards}
+.hnav{margin-top:-6px}
+.chips.wrap{flex-wrap:wrap;overflow:visible}
+[id^="h-"]{scroll-margin-top:16px}
+.tl{display:flex;flex-direction:column}
+.tl li{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;padding-bottom:18px}
+.tl li:last-child{padding-bottom:0}
+.tl li:not(:last-child)::after{content:"";position:absolute;left:19px;top:44px;bottom:4px;width:2px;border-radius:1px;background:linear-gradient(var(--accent),color-mix(in srgb,var(--accent) 8%,transparent))}
+.tli{width:40px;height:40px;border-radius:12px;background:var(--grad);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--display);font-weight:700;box-shadow:0 8px 16px -8px var(--glow)}
+.tl b{display:block;margin-top:2px}
+.tl div > span{color:var(--muted);font-size:.92rem}
+.pc{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface-2)}
+.pc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.pc-head > span{display:inline-flex;align-items:center;gap:7px;font-size:.84rem;font-weight:700;color:var(--muted)}
+.pc-head .icon{width:17px;height:17px}
+.pc .code{border:0;border-radius:0;background:transparent;max-height:240px}
+.tips{display:flex;flex-direction:column;gap:8px}
+.tips li{display:flex;gap:10px;font-size:.93rem;align-items:flex-start}
+.tips .icon{color:var(--t6);width:18px;height:18px;margin-top:2px}
+.fmt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 12px;align-items:center}
+.fmt code{font:700 .9rem var(--mono);background:var(--accent-soft);color:var(--accent);border-radius:8px;min-width:40px;text-align:center;padding:4px 8px}
+.fmt span{font-size:.93rem}
+.fmt small{color:var(--muted);font-size:.84rem}
+.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:540px){.modes{grid-template-columns:1fr}}
+.mode{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);transition:transform .25s var(--ease),box-shadow .25s,border-color .2s}
+.mode:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--mc) 40%,var(--line))}
+.mode.m1{--mc:var(--accent)}.mode.m2{--mc:var(--t3)}.mode.m3{--mc:var(--t5)}.mode.m4{--mc:var(--ko)}
+.mi2{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--mc) 14%,transparent);color:var(--mc);margin-bottom:2px}
+.mode p{font-size:.9rem;color:var(--muted);flex:1}
+.rec{align-self:flex-start;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;margin-top:4px}
+.rec.yes{background:var(--accent-soft);color:var(--accent)}
+.rec.no{background:color-mix(in srgb,var(--t5) 15%,transparent);color:var(--t5)}
+details.faq{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;transition:box-shadow .25s,border-color .2s}
+details.faq + details.faq{margin-top:8px}
+details.faq[open]{box-shadow:var(--shadow);border-color:var(--line-2)}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:13px 16px;font-weight:700}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;margin-left:auto;width:8px;height:8px;border-right:2px solid var(--faint);border-bottom:2px solid var(--faint);transform:rotate(45deg) translate(-2px,-2px);transition:transform .25s var(--ease)}
+.faq[open] summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.faq summary:hover{background:var(--surface-2)}
+.fi{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.fi .icon{width:18px;height:18px}
+.fa{padding:2px 16px 16px 62px;color:var(--muted);font-size:.93rem;display:flex;flex-direction:column;gap:10px;align-items:flex-start;animation:fadeUp .3s var(--ease)}
+.fa b{color:var(--ink)}
+.keys{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;align-items:center}
+.keys > span:nth-child(odd){white-space:nowrap;color:var(--ink)}
+kbd{font:700 .76rem var(--mono);background:var(--surface-2);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;padding:1px 6px;color:var(--ink)}
+@media (max-width:420px){.fa{padding-left:16px}}
+
+/* Practice (not recorded) */
+.sandbox{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:var(--r);background:linear-gradient(135deg,color-mix(in srgb,var(--t5) 14%,var(--surface)),var(--surface) 70%);border:1.5px dashed color-mix(in srgb,var(--t5) 55%,var(--line))}
+.sb-ico{flex:none;width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,var(--t5),color-mix(in srgb,var(--t5) 60%,var(--accent)));color:var(--on-tag);display:grid;place-items:center;box-shadow:0 8px 16px -8px color-mix(in srgb,var(--t5) 70%,transparent)}
+.sandbox b{display:block}
+.sandbox div > span{font-size:.88rem;color:var(--muted)}
+.prset{gap:18px}
+.pr-field{display:flex;flex-direction:column;gap:9px}
+.pr-lab{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.prset .chip[aria-pressed="true"],.prset .seg button[aria-pressed="true"]{background:linear-gradient(135deg,var(--t5),var(--accent));color:var(--accent-ink);border-color:transparent;box-shadow:0 6px 14px -8px color-mix(in srgb,var(--t5) 70%,transparent)}
+.chip .cdot{width:8px;height:8px;border-radius:3px;background:var(--tc);flex:none}
+.chip[aria-pressed="true"] .cdot{background:currentColor}
+.prgo{display:flex;align-items:center;gap:12px 18px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--line)}
+.prgo .btn{flex:1;min-width:200px}
+.btn.practice{background:linear-gradient(135deg,var(--t5),var(--accent));border-color:transparent;color:var(--accent-ink);box-shadow:0 8px 18px -10px color-mix(in srgb,var(--t5) 75%,transparent)}
+.btn.practice:hover:not(:disabled){filter:brightness(1.07)}
+.btn.practice .icon{width:20px;height:20px}
+.prlast{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow)}
+.prlast b.ell{font-weight:700}
+.minring{flex:none;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--t5) calc(var(--p) * 1%),var(--line) 0)}
+.minring b{width:44px;height:44px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-family:var(--display);font-size:.86rem}
+.prpill{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:700;color:var(--t5);background:color-mix(in srgb,var(--t5) 14%,transparent);padding:2px 9px;border-radius:999px;margin-top:2px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.prpill .icon{width:13px;height:13px;flex:none}
+.prnote{display:inline-flex;gap:7px;align-items:center;font-size:.85rem;color:var(--t5);font-weight:700;background:color-mix(in srgb,var(--t5) 12%,transparent);padding:6px 12px;border-radius:999px}
+.prnote .icon{width:16px;height:16px;flex:none}
+body.practice-run .progress span{background:linear-gradient(90deg,var(--t5),var(--accent))}
+body.practice-run .qcard::before{background:linear-gradient(90deg,var(--t5),var(--accent))}
+body.practice-run .qcard{border-style:dashed;border-color:color-mix(in srgb,var(--t5) 45%,var(--line))}
+.tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+.tab span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.tab[data-tab="practice"][aria-current="page"]{color:var(--t5)}
+.tab[data-tab="practice"][aria-current="page"] .icon{background:color-mix(in srgb,var(--t5) 15%,transparent)}
+@media (max-width:400px){.tab .icon{width:46px;padding:3px 11px}.tab{font-size:.68rem}}
+@media (max-width:380px){.tab span[data-short]{font-size:0}.tab span[data-short]::after{content:attr(data-short);font-size:.68rem}}
+
 /* Installed app */
 .iosico{width:38px;height:38px;border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--accent);flex:none}
 @media (display-mode: standalone){ body{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent} input,textarea,.code,.qtext,.face-text{-webkit-user-select:text;user-select:text} }
@@ -727,7 +916,10 @@ const COLORS = ["c3","c2","c4","c1","c6","c5"];
 const COLOR_NAMES = {c1:"Ocra",c2:"Verde",c3:"Blu",c4:"Viola",c5:"Rosso",c6:"Petrolio"};
 const TCOLORS = ["t1","t2","t3","t4","t5","t6","t7"];
 const TOPIC_TO_DECK = {t1:"c3",t2:"c2",t3:"c4",t4:"c1",t5:"c6",t6:"c1",t7:"c5"};
-const KIND = {train:"Allenamento", exam:"Simulazione d'esame", errors:"Ripasso errori"};
+const KIND = {train:"Allenamento", exam:"Simulazione d'esame", errors:"Ripasso errori", practice:"Prova libera"};
+const APP_VERSION = "2.0";
+/* Exams and blind practice runs hide the correction until the end. */
+const deferred = r => r.kind === "exam" || !!r.blind;
 const PROMPT = `Crea le domande a crocette per la mia app Schedario dal materiale che ti allego.
 Copri tutte le definizioni, gli argomenti, gli esempi e le trappole, divise per macro argomento.
 Per ogni domanda scrivi 1 risposta giusta e 3 risposte sbagliate plausibili, di lunghezza simile alla giusta.
@@ -764,6 +956,14 @@ const ICON = {
   alert:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5V13M12 16.5v.01"/>',
   layers:'<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',
   swap:'<path d="M4 8h15l-3.5-3.5"/><path d="M20 16H5l3.5 3.5"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.9.7c0 1.7-2.5 2.2-2.5 3.9M12 17.2v.01"/>',
+  play:'<circle cx="12" cy="12" r="9"/><path d="m10.2 8.6 5 3.4-5 3.4z"/>',
+  eyeoff:'<path d="M3 3l18 18"/><path d="M10.6 5.1A9.7 9.7 0 0 1 12 5c5 0 8.7 4.3 10 7a13 13 0 0 1-2.6 3.6M6.6 6.6A13 13 0 0 0 2 12c1.3 2.7 5 7 10 7a9.6 9.6 0 0 0 5.1-1.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+  flame:'<path d="M12 21.5c-3.9 0-7-2.6-7-6.6 0-3 1.8-4.9 3.4-6.5.3 1.9 1.3 3 2.4 3-.4-3.1 1-6 3.9-8 0 3 1.6 4.6 3 6.4 1 1.3 1.3 2.6 1.3 4.1 0 4.8-3.1 7.6-7 7.6z"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
+  bulb:'<path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2h5.6c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5z"/>',
+  key:'<rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M7.5 14h9"/>',
+  phone:'<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M11 18h2"/>',
   moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'
 };
 const ico = (n, cls) => `<svg class="icon${cls ? " " + cls : ""}" viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
@@ -773,7 +973,8 @@ const S = {
   quizMode: "train", simScope: "all", errFilter: "all", chartSel: null,
   projects: [], topics: [], attempts: [], decks: [], cards: [], qIndex: {}, run: null,
   home: {newOpen: false, newColor: "c3"},
-  imp: {newTitle: ""}, add: {target: ""}, projColor: null, bk: {}, back: null, bkFlash: false,
+  imp: {newTitle: ""}, add: {target: ""}, projColor: null, bk: {}, back: null, bkFlash: false, copyFlash: false,
+  pr: {scope: "all", blind: false, n: 10}, prLast: null,
   fl: {view:"home", deckId:null, study:null, newDeckOpen:false, newDeckColor:"c3", editCard:null, confirm:null, renameDeck:false, renameColor:null, importOpen:false, search:""}
 };
 const F = S.fl;
@@ -915,8 +1116,11 @@ function groupsOf(pid){
 function projSummary(p){
   const ts = topicsOf(p.id), nq = ts.reduce((s, t) => s + (t.questions || []).length, 0);
   const m = qstats(p.id); let r = 0, w = 0; Object.keys(m).forEach(k => { r += m[k].r; w += m[k].w; });
+  let last = 0;
+  S.attempts.forEach(a => { if ((a.answers || []).length && attemptProject(a) === p.id) last = Math.max(last, a.ended || a.started || 0); });
+  S.cards.forEach(c => { if (c.last && (deckById(c.deckId) || {}).projectId === p.id) last = Math.max(last, c.last); });
   return {topics: ts.length, questions: nq, errors: errorIds(m, "all").length, acc: r + w ? r / (r + w) : null,
-    due: S.cards.filter(c => isDue(c) && (deckById(c.deckId) || {}).projectId === p.id).length};
+    due: S.cards.filter(c => isDue(c) && (deckById(c.deckId) || {}).projectId === p.id).length, last};
 }
 
 /* ---------- import parser ---------- */
@@ -984,11 +1188,12 @@ function planImport(parsed, target, newTitle){
 function startRun(kind, qids, meta){
   qids = qids.filter(id => S.qIndex[id]);
   if (!qids.length){ toast("Nessuna domanda da proporre."); return; }
-  const items = shuffle(qids.slice()).map(id => {
+  const items = shuffle(qids.slice()).slice(0, meta.limit || undefined).map(id => {
     const Q = S.qIndex[id].q, o = shuffle([Q.a].concat(Q.w.slice(0, 3)));
     return {q: id, o, c: o.indexOf(Q.a), ch: null};
   });
-  S.run = {kind, title: meta.title, projectId: S.pid, topicId: meta.topicId || null, scope: meta.scope || null, items, pos: 0, id: uid(), started: Date.now(), done: false, confirm: null, showAll: false, fresh: false};
+  S.run = {kind, title: meta.title, projectId: S.pid, topicId: meta.topicId || null, scope: meta.scope || null, items, pos: 0, id: uid(), started: Date.now(), done: false, confirm: null, showAll: false, fresh: false,
+    practice: !!meta.practice, blind: !!meta.blind};
   render(); top();
 }
 function runDoc(complete){
@@ -1007,17 +1212,17 @@ function runDoc(complete){
 function choose(i){
   const r = S.run; if (!r || r.done) return;
   const it = r.items[r.pos]; if (!it) return;
-  if (r.kind === "exam"){ it.ch = i; r.confirm = null; render(); return; }
+  if (deferred(r)){ it.ch = i; r.confirm = null; render(); return; }
   if (it.ch !== null) return;
   it.ch = i; r.fresh = true;
-  store.put("attempts", runDoc(false));
+  if (r.practice) render(); else store.put("attempts", runDoc(false));
   r.fresh = false;
 }
 function nextQ(){
   const r = S.run; if (!r || r.done) return;
-  if (r.kind !== "exam" && r.items[r.pos].ch === null) return;
+  if (!deferred(r) && r.items[r.pos].ch === null) return;
   if (r.pos < r.items.length - 1){ r.pos++; r.confirm = null; render(); top(); }
-  else if (r.kind !== "exam") finishRun();
+  else if (!deferred(r)) finishRun();
   else submitExam();
 }
 function prevQ(){ const r = S.run; if (r && r.pos > 0){ r.pos--; r.confirm = null; render(); top(); } }
@@ -1027,10 +1232,17 @@ function submitExam(force){
   if (missing && !force){ r.confirm = "submit"; render(); return; }
   finishRun();
 }
-function finishRun(){ const r = S.run; r.done = true; r.confirm = null; store.put("attempts", runDoc(true)); top(); }
+function finishRun(){
+  const r = S.run; r.done = true; r.confirm = null;
+  if (r.practice){
+    S.prLast = {pid: r.projectId, title: r.title, ok: r.items.filter(x => x.ch === x.c).length, total: r.items.length, blind: r.blind};
+    render();
+  } else store.put("attempts", runDoc(true));
+  top();
+}
 function exitRun(force){
   const r = S.run; if (!r) return;
-  if (r.kind === "exam" && !r.done && r.items.some(it => it.ch !== null) && !force){ r.confirm = "exit"; render(); return; }
+  if (deferred(r) && !r.done && r.items.some(it => it.ch !== null) && !force){ r.confirm = "exit"; render(); return; }
   S.run = null; render(); top();
 }
 
@@ -1052,12 +1264,14 @@ function render(){
     else {
       if (S.sub) html = viewSub();
       else if (S.tab === "quiz") html = viewQuiz();
+      else if (S.tab === "practice") html = viewPractice();
       else if (S.tab === "errors") html = viewErrors();
       else if (S.tab === "stats") html = viewStats();
       else html = viewFlash();
       bar = tabBar();
     }
   } else if (S.view === "settings") html = viewSettings();
+  else if (S.view === "help") html = viewHelp();
   else { S.view = "home"; S.pid = null; html = viewHome(); }
   $app.innerHTML = html;
   $bar.innerHTML = bar ? '<div class="bar-in">' + bar + '</div>' : "";
@@ -1126,52 +1340,170 @@ function afterRender(){
   if (pg){ const w = pg.style.width; pg.style.setProperty("--from", pk === lastProgKey && lastProgW != null ? lastProgW : (S.run ? "0%" : w)); lastProgW = w; }
   lastProgKey = pk;
   if (!entering || calm()) return;
-  $app.querySelectorAll(".ring b, .trio b, .tile b, .sim-count b, .bignum").forEach(countUp);
+  $app.querySelectorAll(".ring b, .trio b, .tile b, .sim-count b, .bignum, .kpi b, .streak b").forEach(countUp);
+  document.body.classList.toggle("practice-run", !!(S.run && S.run.practice));
   const r = S.run;
   if (r && r.done && r.items.length && r.items.filter(x => x.ch === x.c).length / r.items.length >= .8) setTimeout(confetti, 350);
 }
 const chip = () => S.mode === "db" ? '<span class="sync db">Salvato nel tuo account</span>' : '<span class="sync local">Salvato solo su questo dispositivo</span>';
 function tabBar(){
   const n = errorIds(qstats(S.pid), "all").length;
-  const t = (id, label, icon, extra) => `<button class="tab" data-act="tab" data-tab="${id}" ${S.tab === id && !S.sub ? 'aria-current="page"' : ""}>${ico(icon)}<span>${label}</span>${extra || ""}</button>`;
-  return `<nav class="tabs" aria-label="Sezioni del progetto">${t("quiz","Quiz","quiz")}${t("errors","Errori","err", n ? `<span class="dot">${n > 99 ? "99+" : n}</span>` : "")}${t("stats","Statistiche","stats")}${t("flash","Flashcard","flash")}</nav>`;
+  const t = (id, label, icon, extra, short) => `<button class="tab" data-act="tab" data-tab="${id}" ${S.tab === id && !S.sub ? 'aria-current="page"' : ""}>${ico(icon)}<span${short ? ` data-short="${short}"` : ""}>${label}</span>${extra || ""}</button>`;
+  return `<nav class="tabs" aria-label="Sezioni del progetto">${t("quiz","Quiz","quiz")}${t("practice","Prova","play")}${t("errors","Errori","err", n ? `<span class="dot">${n > 99 ? "99+" : n}</span>` : "")}${t("stats","Statistiche","stats","","Stats")}${t("flash","Flashcard","flash")}</nav>`;
 }
 function projHead(subtitle){
   const p = proj();
   return `<div class="backrow"><button class="link" data-act="home">${ico("left")}Progetti</button>${chip()}</div>`
-    + `<div class="phead ${esc(p.color || "c3")}"><span class="ptag">${esc(initials(p.name))}</span><div style="flex:1;min-width:0"><h1>${esc(p.name)}</h1>${subtitle ? `<p class="hint tnum">${subtitle}</p>` : ""}</div><button class="iconbtn" data-act="sub" data-sub="settings" aria-label="Impostazioni del progetto">${ico("gear")}</button></div>`;
+    + `<div class="phead ${esc(p.color || "c3")}"><span class="ptag">${esc(initials(p.name))}</span><div style="flex:1;min-width:0"><h1>${esc(p.name)}</h1>${subtitle ? `<p class="hint tnum">${subtitle}</p>` : ""}</div><button class="iconbtn" data-act="help" aria-label="Guida e informazioni">${ico("help")}</button><button class="iconbtn" data-act="sub" data-sub="settings" aria-label="Impostazioni del progetto">${ico("gear")}</button></div>`;
 }
 function subHead(title, back){
   return `<div class="backrow"><button class="link" data-act="sub-back" data-to="${back || ""}">${ico("left")}${esc(back === "manage" ? "Domande del progetto" : proj().name)}</button></div><div class="pagehead"><h1>${title}</h1></div>`;
 }
+const copyBtn = (cls, short) => `<button class="btn ${cls || "soft"}${S.copyFlash ? " copied" : ""}" data-act="copy-prompt">${ico(S.copyFlash ? "check" : "copy")}${S.copyFlash ? (short ? "Copiata" : "Richiesta copiata") : (short ? "Copia" : "Copia la richiesta per Claude")}</button>`;
 function promptBox(){
   return `<details class="more"><summary>Vedi il testo della richiesta</summary><pre class="code" id="prompt-text">${esc(PROMPT)}</pre></details>`;
 }
 const swatches = (sel, act) => `<div class="swatches" role="group" aria-label="Colore">${COLORS.map(c => `<button type="button" class="sw ${c}" data-act="${act}" data-color="${c}" aria-pressed="${c === sel}" aria-label="${COLOR_NAMES[c]}"></button>`).join("")}</div>`;
 
 /* ---------- Home ---------- */
+const relDay = t => { const d = Math.round((sod(Date.now()) - sod(t)) / DAY); return d <= 0 ? "oggi" : d === 1 ? "ieri" : d < 7 ? d + " giorni fa" : fmtDate(t); };
+const prevDay = t => { const x = new Date(t); x.setDate(x.getDate() - 1); return sod(x.getTime()); };
+function activity(){
+  const ans = new Map(), crd = new Map(), live = new Set(S.projects.map(p => p.id));
+  S.attempts.forEach(a => { const n = (a.answers || []).length, t = a.ended || a.started; if (n && t && live.has(attemptProject(a))){ const d = sod(t); ans.set(d, (ans.get(d) || 0) + n); } });
+  S.cards.forEach(c => { if (c.last){ const d = sod(c.last); crd.set(d, (crd.get(d) || 0) + 1); } });
+  const day = d => (ans.get(d) || 0) + (crd.get(d) || 0), today = sod(Date.now());
+  let streak = 0, d = day(today) ? today : prevDay(today);
+  while (day(d)){ streak++; d = prevDay(d); }
+  const week = []; let w = today;
+  for (let i = 0; i < 7; i++){ week.unshift({d: w, n: day(w)}); w = prevDay(w); }
+  return {streak, week, today: day(today), ansToday: ans.get(today) || 0, cardsToday: crd.get(today) || 0};
+}
 function viewHome(){
-  const ps = S.projects.slice().sort((a, b) => (a.created || 0) - (b.created || 0));
-  let h = `<header class="top"><div class="brand"><span class="mark">${ico("flash")}</span><span>Schedario</span></div><div class="topr">${chip()}${PWA.prompt ? `<button class="btn sm primary" data-act="install">${ico("download")}Installa</button>` : ""}<button class="iconbtn" data-act="theme" aria-label="${isDark() ? "Passa al tema chiaro" : "Passa al tema scuro"}">${ico(isDark() ? "sun" : "moon")}</button><button class="iconbtn" data-act="app-settings" aria-label="Impostazioni e backup">${ico("gear")}</button></div></header>`;
-  h += `<div class="pagehead"><h1>I tuoi progetti</h1><p>Un progetto per ogni materia o esame, con quiz, archivio errori, statistiche e flashcard.</p></div>`;
+  const ps = S.projects.slice().sort((a, b) => (a.created || 0) - (b.created || 0)), now = new Date(), hr = now.getHours();
+  const sums = ps.map(p => Object.assign({p}, projSummary(p))), act = activity();
+  const greet = hr < 5 ? "Buonanotte" : hr < 12 ? "Buongiorno" : hr < 18 ? "Buon pomeriggio" : "Buonasera";
+  const dateStr = now.toLocaleDateString("it-IT", {weekday: "long", day: "numeric", month: "long"});
+  const m = qstats(null); let r = 0, w = 0; Object.keys(m).forEach(k => { if (S.qIndex[k]){ r += m[k].r; w += m[k].w; } });
+  const nq = sums.reduce((x, s) => x + s.questions, 0), errs = sums.reduce((x, s) => x + s.errors, 0), due = sums.reduce((x, s) => x + s.due, 0);
+  const top1 = key => sums.slice().sort((a, b) => b[key] - a[key])[0];
+  const resume = sums.slice().sort((a, b) => b.last - a.last || (b.p.created || 0) - (a.p.created || 0))[0];
+  const msg = !ps.length ? "Benvenuto in Schedario. Crea il primo progetto e trasforma le tue lezioni in quiz e flashcard."
+    : act.today ? (act.streak > 1 ? `Sei a ${act.streak} giorni di fila: ottimo ritmo, continua così!` : `Oggi hai già ${act.ansToday ? "risposto a " + plural(act.ansToday, "domanda", "domande") : ""}${act.ansToday && act.cardsToday ? " e " : ""}${act.cardsToday ? "ripassato " + plural(act.cardsToday, "carta", "carte") : ""}. Ottimo inizio!`)
+    : act.streak ? `Hai studiato ${plural(act.streak, "giorno", "giorni")} di fila: oggi mantieni la serie!`
+    : "Pronto per una nuova sessione di studio?";
+  const L = ["D", "L", "M", "M", "G", "V", "S"], mx = Math.max(1, ...act.week.map(x => x.n));
+
+  let h = `<header class="top"><div class="brand"><span class="mark">${ico("flash")}</span><span>Schedario</span></div><div class="topr">${PWA.prompt ? `<button class="btn sm primary" data-act="install">${ico("download")}Installa</button>` : ""}<button class="iconbtn" data-act="help" aria-label="Guida e informazioni">${ico("help")}</button><button class="iconbtn" data-act="app-settings" aria-label="Impostazioni e backup">${ico("gear")}</button></div></header>`;
+  h += `<section class="hero"><div class="hero-main"><span class="hero-date">${esc(dateStr)}</span><h1>${greet}</h1><p>${msg}</p><div class="hero-cta">`
+    + (resume ? `<button class="btn hero-btn" data-act="open-proj" data-id="${esc(resume.p.id)}">${ico("play")}<span class="ell">${resume.last ? "Riprendi" : "Apri"} ${esc(resume.p.name)}</span></button>` : `<button class="btn hero-btn" data-act="help">${ico("help")}Scopri come funziona</button>`)
+    + (due ? `<button class="btn hero-ghost" data-act="go-due" data-id="${esc(top1("due").p.id)}">${ico("flash")}${plural(due, "carta", "carte")} da ripassare</button>` : "")
+    + `</div></div>` + (ps.length ? `<div class="hero-side"><div class="streak${act.today ? " on" : ""}" title="Giorni di studio consecutivi">${ico("flame")}<b>${act.streak}</b><span>${act.streak === 1 ? "giorno" : "giorni"} di fila</span></div>`
+    + `<div class="week" role="img" aria-label="Attività degli ultimi 7 giorni">${act.week.map((x, i) => `<div class="wk${i === 6 ? " today" : ""}${x.n ? " on" : ""}" title="${esc(fmtDate(x.d))}: ${x.n}"><span class="wbar" style="height:${4 + Math.round(30 * x.n / mx)}px"></span><small>${L[new Date(x.d).getDay()]}</small></div>`).join("")}</div></div>` : "") + `</section>`;
   if (PWA.iosHint()) h += `<div class="banner info"><span class="iosico">${ico("share")}</span><div class="bt"><b style="color:var(--ink)">Installa Schedario su iPhone</b><br>Tocca Condividi e poi “Aggiungi alla schermata Home”: funzionerà anche senza connessione.</div><button class="btn sm" data-act="ios-hint-off">Ok</button></div>`;
-  if (S.mode === "local" && !PWA.standalone()) h += `<div class="banner info"><div class="bt">Stai usando l'app fuori dal tuo account Claude: i dati restano solo su questo dispositivo.</div></div>`;
-  h += `<div class="pgrid">`;
-  ps.forEach(p => {
-    const s = projSummary(p);
-    h += `<button class="pcard ${esc(p.color || "c3")}" data-act="open-proj" data-id="${esc(p.id)}"><div class="ph"><span class="ptag lg">${esc(initials(p.name))}</span><div style="min-width:0"><div class="pn">${esc(p.name)}</div><div class="pm tnum">${plural(s.topics, "argomento", "argomenti")} · ${plural(s.questions, "domanda", "domande")}</div></div></div>`
-      + `<div><div class="pfoot"><span>${s.acc == null ? "Ancora nessun test" : `Risposte corrette <b>${pct(s.acc)}</b>`}</span>${s.errors ? `<span class="perr tnum">${plural(s.errors, "errore", "errori")}</span>` : (s.due ? `<span class="tnum">${s.due} carte oggi</span>` : "")}</div><div class="meter" style="--tc:var(--dc)"><span style="width:${s.acc == null ? 0 : Math.round(s.acc * 100)}%"></span></div></div></button>`;
-  });
-  if (!S.home.newOpen) h += `<button class="pnew" data-act="new-proj">${ico("plus")}Nuovo progetto</button>`;
-  h += `</div>`;
+  if (ps.length){
+    const kpi = (cls, icon, v, l, act2, pid) => act2 && pid ? `<button class="kpi ${cls}" data-act="${act2}" data-id="${esc(pid)}">${ico(icon)}<b>${v}</b><span>${l}</span></button>` : `<div class="kpi ${cls}">${ico(icon)}<b>${v}</b><span>${l}</span></div>`;
+    h += `<div class="kpis tnum">`
+      + kpi("kq", "quiz", nq, `domande in ${plural(ps.length, "progetto", "progetti")}`)
+      + kpi("ka", "check", r + w ? pct(r / (r + w)) : "–", "risposte corrette")
+      + kpi("ke", "err", errs, "errori da rivedere", errs && "go-err", errs && top1("errors").p.id)
+      + kpi("kd", "flash", due, "carte per oggi", due && "go-due", due && top1("due").p.id) + `</div>`;
+  }
+  h += `<section class="stack"><div class="sechead"><h2>I tuoi progetti</h2>${ps.length ? `<span class="count tnum">${ps.length}</span>` : ""}</div>`;
+  if (!ps.length && !S.home.newOpen){
+    h += `<div class="onboard"><div class="ob-art" aria-hidden="true"><span></span><span></span><span>${ico("check")}</span></div><h2>Inizia dal tuo primo progetto</h2><p class="muted">Un progetto per ogni materia o esame: dentro trovi quiz, prova libera, archivio errori, statistiche e flashcard.</p><div class="row"><button class="btn primary" data-act="new-proj">${ico("plus")}Crea il primo progetto</button><button class="btn" data-act="help">${ico("help")}Come funziona</button></div></div>`;
+  } else if (ps.length){
+    h += `<div class="pgrid">`;
+    sums.forEach(s => {
+      const p = s.p;
+      h += `<button class="pcard ${esc(p.color || "c3")}" data-act="open-proj" data-id="${esc(p.id)}"><div class="ph"><span class="ptag lg">${esc(initials(p.name))}</span><div class="min0"><div class="pn">${esc(p.name)}</div><div class="pm tnum">${plural(s.topics, "argomento", "argomenti")} · ${plural(s.questions, "domanda", "domande")}</div></div><span class="pgo">${ico("right")}</span></div>`
+        + `<div class="pmeter"><div class="meter" style="--tc:var(--dc)"><span style="width:${s.acc == null ? 0 : Math.round(s.acc * 100)}%"></span></div><b class="tnum">${s.acc == null ? "–" : pct(s.acc)}</b></div>`
+        + `<div class="pstats tnum"><span class="${s.errors ? "ko" : ""}" title="Domande nell'archivio errori">${ico("err")}${plural(s.errors, "errore", "errori")}</span><span class="${s.due ? "due" : ""}" title="Flashcard da ripassare oggi">${ico("flash")}${plural(s.due, "carta", "carte")}</span><span title="Ultimo studio">${ico("clock")}${s.last ? relDay(s.last) : "mai"}</span></div></button>`;
+    });
+    if (!S.home.newOpen) h += `<button class="pnew" data-act="new-proj">${ico("plus")}Nuovo progetto</button>`;
+    h += `</div>`;
+  }
   if (S.home.newOpen){
     h += `<form class="panel" data-form="new-proj"><h2>Nuovo progetto</h2><div><label for="np-name">Nome della materia o dell'esame</label><input type="text" id="np-name" maxlength="80" placeholder="Es. Diritto privato" autocomplete="off"></div><div><label>Colore</label>${swatches(S.home.newColor, "np-color")}</div><div class="row"><button class="btn primary" type="submit">Crea progetto</button><button class="btn" type="button" data-act="new-proj-cancel">Annulla</button></div></form>`;
   }
-  h += `<section class="panel"><h2>Come aggiungere le domande</h2><ol class="steps">
-    <li><div><b>Crea un progetto</b><span>Uno per ogni materia: Diritto, Statistica, Politica Economica…</span></div></li>
-    <li><div><b>Chiedi a Claude le domande</b><span>Allega il file della lezione e incolla la richiesta qui sotto: Claude risponde già nel formato giusto, diviso per argomenti.</span></div></li>
-    <li><div><b>Incollale nel progetto</b><span>Apri il progetto, tocca “Aggiungi domande” e incolla il testo. Gli argomenti si creano da soli.</span></div></li>
-  </ol><button class="btn soft" data-act="copy-prompt">${ico("copy")}Copia la richiesta per Claude</button>${promptBox()}</section>`;
+  h += `</section>`;
+  h += `<button class="helpcta" data-act="help"><span class="hc-ico">?</span><span class="min0"><b>Come preparare le domande con Claude</b><small>Guida passo passo, formato, modalità di studio e domande frequenti</small></span><span class="chev">${ico("right")}</span></button>`;
+  h += `<footer class="foot">${chip()}<span>Schedario ${APP_VERSION}</span></footer>`;
+  return h;
+}
+
+/* ---------- Help ---------- */
+function viewHelp(){
+  const bp = S.back && S.projects.find(x => x.id === S.back.pid);
+  const mode = (cls, icon, name, desc, rec) => `<div class="mode ${cls}"><span class="mi2">${ico(icon)}</span><b>${name}</b><p>${desc}</p><span class="rec ${rec ? "yes" : "no"}">${rec ? "Registra errori e statistiche" : "Non registra niente"}</span></div>`;
+  const faq = (icon, q, a) => `<details class="faq"><summary><span class="fi">${ico(icon)}</span><span>${q}</span></summary><div class="fa">${a}</div></details>`;
+  let h = `<div class="backrow"><button class="link" data-act="settings-back">${ico("left")}${esc(bp ? bp.name : "Progetti")}</button></div>`;
+  h += `<section class="helphero"><span class="hh-ico" aria-hidden="true">?</span><div class="min0"><h1>Guida</h1><p>Come preparare le domande con Claude, studiare con le diverse modalità e tenere al sicuro i tuoi dati.</p></div></section>`;
+  h += `<nav class="chips hnav" aria-label="Sezioni della guida"><button class="chip" data-act="help-go" data-to="h-start">Primi passi</button><button class="chip" data-act="help-go" data-to="h-claude">Domande con Claude</button><button class="chip" data-act="help-go" data-to="h-modes">Modalità di studio</button><button class="chip" data-act="help-go" data-to="h-faq">Domande frequenti</button></nav>`;
+  h += `<section class="panel" id="h-start"><h2>Inizia in tre passi</h2><ol class="tl">
+    <li><span class="tli">1</span><div><b>Crea un progetto</b><span>Uno per ogni materia o esame: Diritto, Statistica, Politica economica…</span></div></li>
+    <li><span class="tli">2</span><div><b>Chiedi a Claude le domande</b><span>Allega il file della lezione e incolla la richiesta qui sotto: Claude risponde già nel formato giusto, diviso per argomenti.</span></div></li>
+    <li><span class="tli">3</span><div><b>Incollale nel progetto</b><span>Apri il progetto, tocca “Aggiungi domande” e incolla il testo. Gli argomenti si creano da soli e l'anteprima ti mostra cosa verrà importato.</span></div></li>
+  </ol></section>`;
+  h += `<section class="panel" id="h-claude"><h2>Preparare le domande con Claude</h2><p class="muted">Apri una chat con Claude, allega il materiale (PDF, slide o appunti della lezione) e incolla questa richiesta.</p>`
+    + `<div class="pc"><div class="pc-head"><span>${ico("file")}Richiesta per Claude</span>${copyBtn("sm primary", true)}</div><pre class="code" id="prompt-text">${esc(PROMPT)}</pre></div>`
+    + `<ul class="tips"><li>${ico("bulb")}<span>Una lezione alla volta dà domande più precise e complete.</span></li><li>${ico("bulb")}<span>Se la risposta si interrompe, scrivi “continua” e incolla anche il seguito.</span></li><li>${ico("bulb")}<span>Puoi chiedere “altre 20 domande sull'argomento B” per approfondire un tema.</span></li><li>${ico("bulb")}<span>Le domande già presenti nel progetto non vengono mai duplicate.</span></li></ul>`
+    + `<h3>Il formato in breve</h3><div class="fmt">`
+    + [["##", "Lezione o gruppo", "facoltativo"], ["#", "Argomento", "es. # A · Contratti"], ["?", "Testo della domanda", ""], ["=", "Risposta giusta", ""], ["-", "Risposta sbagliata", "tre righe"], ["!", "Nota o trappola da ricordare", "facoltativa"]].map(([k, v, n]) => `<code>${esc(k)}</code><span>${v}${n ? ` <small>· ${n}</small>` : ""}</span>`).join("")
+    + `</div><p class="hint">In alternativa, una domanda per riga: domanda ; giusta ; sbagliata ; sbagliata ; sbagliata</p></section>`;
+  h += `<section class="stack" id="h-modes"><h2>Modalità di studio</h2><div class="modes">`
+    + mode("m1", "quiz", "Allenamento", "Un argomento alla volta, con la correzione subito dopo ogni risposta.", true)
+    + mode("m2", "check", "Simulazione d'esame", "Tutte le domande mescolate; vedi le correzioni solo alla consegna.", true)
+    + mode("m3", "play", "Prova libera", "Subito o alla cieca, con le domande che vuoi: perfetta per provare prima di iniziare.", false)
+    + mode("m4", "err", "Ripasso errori", "Solo le domande che hai sbagliato almeno una volta, per fissarle.", true)
+    + `</div></section>`;
+  h += `<section class="stack" id="h-faq"><h2>Domande frequenti</h2><div>`
+    + faq("err", "Come funziona l'archivio errori?", `<p>Ogni domanda sbagliata in allenamento, simulazione o ripasso entra nell'archivio e ci resta anche quando poi la indovini: così vedi quante volte l'hai sbagliata e quante l'hai azzeccata. Dalla sezione Errori puoi ripassarle tutte o filtrarle per argomento.</p>`)
+    + faq("play", "Cosa cambia con la prova libera?", `<p>La prova libera usa le stesse domande ma non salva niente: né errori, né punteggi, né statistiche. Puoi scegliere l'argomento, quante domande fare e se vedere la correzione subito o solo alla fine.</p>`)
+    + faq("flash", "Come funzionano le flashcard?", `<p>Ogni carta sta in una delle cinque scatole del metodo Leitner. Se la sai passa alla scatola successiva e torna più avanti; se la sbagli torna nella scatola 1. Puoi creare un mazzo direttamente dalle domande di un argomento.</p>`)
+    + faq("file", "Claude ha risposto in un formato diverso", `<p>Incolla comunque tutto il testo: l'anteprima ti mostra quante domande riconosce e quante righe salta. Se serve, chiedi a Claude di “riscrivere le domande nel formato richiesto”.</p>`)
+    + faq("db", "Dove sono salvati i miei dati?", `<p>Nell'app installata o nel browser i dati restano solo su questo dispositivo; dentro Claude vengono salvati nel tuo account. Per spostarli o tenerne una copia usa Esporta e Importa.</p><div>${chip()}</div><button class="btn sm" data-act="app-settings">${ico("db")}Apri backup e impostazioni</button>`)
+    + faq("phone", "Come installo l'app sul telefono?", `<p><b>Android, Chrome, Edge:</b> tocca “Installa” nella pagina iniziale oppure “Installa app” dal menu del browser.<br><b>iPhone e iPad:</b> in Safari tocca Condividi e poi “Aggiungi alla schermata Home”. Una volta installata funziona anche senza connessione.</p>`)
+    + faq("key", "Scorciatoie da tastiera", `<div class="keys"><span><kbd>1</kbd>–<kbd>4</kbd> o <kbd>A</kbd>–<kbd>D</kbd></span><span>scegli la risposta</span><span><kbd>Invio</kbd> o <kbd>→</kbd></span><span>domanda successiva</span><span><kbd>←</kbd></span><span>domanda precedente (simulazione e prova alla cieca)</span><span><kbd>Esc</kbd></span><span>esci dal test</span><span><kbd>Spazio</kbd></span><span>gira la flashcard</span><span><kbd>1</kbd> / <kbd>2</kbd></span><span>da ripassare / la sapevo</span><span><kbd>Ctrl</kbd> + <kbd>Invio</kbd></span><span>salva un modulo</span></div>`)
+    + `</div></section>`;
+  h += `<footer class="foot"><span>Schedario ${APP_VERSION}</span><span>Funziona anche offline</span><span>I tuoi dati restano tuoi</span></footer>`;
+  return h;
+}
+
+/* ---------- Project: Practice (nothing is recorded) ---------- */
+function prScopes(pid){
+  const ts = topicsOf(pid).filter(t => (t.questions || []).length), gs = groupsOf(pid).filter(g => g.name);
+  const n = list => list.reduce((x, t) => x + (t.questions || []).length, 0);
+  return [{v: "all", l: "Tutto il progetto", n: n(ts)}]
+    .concat(gs.length > 1 ? gs.map(g => ({v: "G|" + g.name, l: g.name, n: n(g.topics)})).filter(x => x.n) : [])
+    .concat(ts.map(t => ({v: "T|" + t.id, l: (t.code ? t.code + " · " : "") + t.title, n: t.questions.length, c: t.color || "t1"})));
+}
+function prQids(scope){
+  const ts = topicsOf(S.pid).filter(t => scope === "all" || "T|" + t.id === scope || "G|" + (t.group || "") === scope);
+  return ts.flatMap(t => (t.questions || []).map(q => q.id));
+}
+function startPractice(){
+  const pr = S.pr, sc = prScopes(S.pid).find(x => x.v === pr.scope) || {l: proj().name}, ids = prQids(pr.scope);
+  startRun("practice", ids, {title: "Prova · " + (pr.scope === "all" ? proj().name : sc.l), practice: true, blind: pr.blind, limit: pr.n && pr.n < ids.length ? pr.n : 0, scope: pr.scope});
+}
+function viewPractice(){
+  const p = proj(), pr = S.pr, scopes = prScopes(p.id);
+  let h = projHead() + `<div class="pagehead"><h2>Prova libera</h2><p>Mettiti alla prova prima di iniziare a studiare sul serio: qui niente viene registrato.</p></div>`;
+  if (!scopes[0].n) return h + `<div class="empty"><h2>Nessuna domanda da provare</h2><p>Aggiungi le domande al progetto e torna qui per provarle senza che vengano registrati errori o statistiche.</p><button class="btn primary" data-act="sub" data-sub="import">${ico("plus")}Aggiungi domande</button></div>`;
+  if (!scopes.some(x => x.v === pr.scope)) pr.scope = "all";
+  const avail = prQids(pr.scope).length, sizes = [10, 20, 30].filter(x => x < avail);
+  if (pr.n && !sizes.includes(pr.n)) pr.n = 0;
+  const count = pr.n || avail;
+  h += `<section class="sandbox"><span class="sb-ico">${ico("eyeoff")}</span><div class="min0"><b>Modalità senza registrazione</b><span>Archivio errori, punteggi e statistiche restano invariati, qualunque risposta tu dia. Puoi uscire quando vuoi.</span></div></section>`;
+  h += `<section class="panel prset"><div class="pr-field"><span class="pr-lab">Cosa vuoi provare</span><div class="chips wrap" role="group" aria-label="Domande da includere">${scopes.map(x => `<button class="chip${x.c ? " " + esc(x.c) : ""}" data-act="pr-scope" data-v="${esc(x.v)}" aria-pressed="${x.v === pr.scope}">${x.c ? '<i class="cdot"></i>' : ""}${esc(x.l)} <span class="n">${x.n}</span></button>`).join("")}</div></div>`
+    + `<div class="pr-field"><span class="pr-lab">Correzione</span><div class="seg" role="group" aria-label="Correzione"><button data-act="pr-blind" data-v="0" aria-pressed="${!pr.blind}">Subito</button><button data-act="pr-blind" data-v="1" aria-pressed="${pr.blind}">Alla fine, alla cieca</button></div><span class="hint">${pr.blind ? "Rispondi a tutto senza vedere le soluzioni, poi scopri il risultato. Puoi tornare indietro e cambiare risposta." : "Dopo ogni risposta vedi subito se è giusta e la nota, se c'è."}</span></div>`
+    + `<div class="pr-field"><span class="pr-lab">Quante domande</span><div class="chips wrap" role="group" aria-label="Numero di domande">${sizes.map(x => `<button class="chip" data-act="pr-n" data-v="${x}" aria-pressed="${pr.n === x}">${x}</button>`).join("")}<button class="chip" data-act="pr-n" data-v="0" aria-pressed="${!pr.n}">Tutte <span class="n">${avail}</span></button></div></div>`
+    + `<div class="prgo"><div class="sim-count"><b>${count}</b><span class="muted">${count === 1 ? "domanda" : "domande"} in ordine casuale</span></div><button class="btn practice" data-act="practice-start">${ico("play")}Inizia la prova</button></div></section>`;
+  const L = S.prLast;
+  if (L && L.pid === p.id){
+    const sc = L.total ? L.ok / L.total : 0;
+    h += `<section class="prlast"><div class="minring" style="--p:${Math.round(sc * 100)}"><b class="tnum">${pct(sc)}</b></div><div class="min0"><span class="eyebrow">Ultima prova · non salvata</span><b class="ell">${esc(L.title)}</b><span class="hint tnum">${L.ok} corrette su ${L.total}${L.blind ? " · alla cieca" : ""}</span></div></section>`;
+  }
   return h;
 }
 
@@ -1390,7 +1722,7 @@ function viewQuiz(){
   const nq = ts.reduce((s, t) => s + (t.questions || []).length, 0);
   let h = projHead(ts.length ? `${plural(ts.length, "argomento", "argomenti")} · ${plural(nq, "domanda", "domande")}` : "");
   if (!ts.length){
-    return h + `<div class="empty"><h2>Aggiungi le prime domande</h2><p>Chiedi a Claude di prepararle dal file della lezione (copia la richiesta qui sotto), poi incolla il testo che ti restituisce. Puoi anche scriverle a mano.</p><div class="row"><button class="btn primary" data-act="sub" data-sub="import">${ico("plus")}Aggiungi domande</button><button class="btn" data-act="sub" data-sub="add">Scrivi una domanda</button></div><button class="btn soft" data-act="copy-prompt">${ico("copy")}Copia la richiesta per Claude</button>${promptBox()}</div>`;
+    return h + `<div class="empty"><h2>Aggiungi le prime domande</h2><p>Chiedi a Claude di prepararle dal file della lezione (copia la richiesta qui sotto), poi incolla il testo che ti restituisce. Puoi anche scriverle a mano.</p><div class="row"><button class="btn primary" data-act="sub" data-sub="import">${ico("plus")}Aggiungi domande</button><button class="btn" data-act="sub" data-sub="add">Scrivi una domanda</button></div>${copyBtn()}${promptBox()}</div>`;
   }
   h += `<div class="seg" role="group" aria-label="Modalità"><button data-act="qmode" data-m="train" aria-pressed="${S.quizMode === "train"}">Allenamento</button><button data-act="qmode" data-m="exam" aria-pressed="${S.quizMode === "exam"}">Simulazione d'esame</button></div>`;
   if (S.quizMode === "train"){
@@ -1444,7 +1776,7 @@ function viewSub(){
     groupsOf(p.id).forEach(g => {
       h += `<section class="group">${g.name ? `<div class="ghead"><h3>${esc(g.name)}</h3></div>` : ""}<div class="trows">${g.topics.map(t => `<button class="trow ${esc(t.color || "t1")}" data-act="sub" data-sub="topic" data-id="${esc(t.id)}"><span class="badge">${esc(t.code)}</span><span><span class="ttitle">${esc(t.title)}</span><span class="tmeta tnum">${plural((t.questions || []).length, "domanda", "domande")}</span></span><span class="chev">${ico("right")}</span></button>`).join("")}</div></section>`;
     });
-    h += `<section class="panel"><h3>Per aggiungere altre domande</h3><p class="muted">Copia la richiesta, mandala a Claude con il file della lezione e incolla qui la risposta. Le domande già presenti non vengono duplicate.</p><button class="btn soft" data-act="copy-prompt">${ico("copy")}Copia la richiesta per Claude</button>${promptBox()}</section>`;
+    h += `<section class="panel"><h3>Per aggiungere altre domande</h3><p class="muted">Copia la richiesta, mandala a Claude con il file della lezione e incolla qui la risposta. Le domande già presenti non vengono duplicate.</p>${copyBtn()}${promptBox()}</section>`;
     return h;
   }
   if (s.type === "import"){
@@ -1454,7 +1786,7 @@ function viewSub(){
       + `<div id="imp-preview" class="preview" hidden></div>`
       + `<div id="imp-target" hidden><label for="imp-dest">Alcune domande non hanno un argomento: dove le metto?</label><select id="imp-dest"><option value="__new">Nuovo argomento…</option>${ts.map(t => `<option value="${esc(t.id)}">${esc(t.code)} · ${esc(t.title)}</option>`).join("")}</select><div id="imp-newwrap" style="margin-top:10px"><label for="imp-newtitle">Titolo del nuovo argomento</label><input type="text" id="imp-newtitle" maxlength="120" placeholder="Es. Fallimenti del mercato"></div></div>`
       + `<button class="btn primary block" data-act="do-import" id="imp-go" disabled>Importa le domande</button></section>`;
-    h += `<section class="panel"><h3>Il formato</h3><p class="muted">Una riga con <b>##</b> per la lezione (facoltativa), <b>#</b> per l'argomento, poi per ogni domanda: <b>?</b> domanda, <b>=</b> risposta giusta, tre righe <b>-</b> con le sbagliate e <b>!</b> per una nota facoltativa. Va bene anche una domanda per riga: domanda ; giusta ; sbagliata ; sbagliata ; sbagliata.</p><button class="btn soft" data-act="copy-prompt">${ico("copy")}Copia la richiesta per Claude</button>${promptBox()}</section>`;
+    h += `<section class="panel"><h3>Il formato</h3><p class="muted">Una riga con <b>##</b> per la lezione (facoltativa), <b>#</b> per l'argomento, poi per ogni domanda: <b>?</b> domanda, <b>=</b> risposta giusta, tre righe <b>-</b> con le sbagliate e <b>!</b> per una nota facoltativa. Va bene anche una domanda per riga: domanda ; giusta ; sbagliata ; sbagliata ; sbagliata.</p><div class="row">${copyBtn()}<button class="link" data-act="help">${ico("help")}Guida completa</button></div>${promptBox()}</section>`;
     return h;
   }
   if (s.type === "add"){
@@ -1533,8 +1865,8 @@ function viewRun(){
   const r = S.run;
   while (r.items.length && !S.qIndex[r.items[r.pos].q]){ r.items.splice(r.pos, 1); if (r.pos >= r.items.length) r.pos = Math.max(0, r.items.length - 1); }
   if (!r.items.length){ S.run = null; return `<p class="loading">Le domande di questo test non esistono più.</p><button class="btn" data-act="exit-run">Torna al progetto</button>`; }
-  const it = r.items[r.pos], Q = S.qIndex[it.q], t = Q.t, exam = r.kind === "exam", answered = it.ch !== null;
-  let h = `<header class="runtop"><button class="close" data-act="exit-run">${ico("x")}Esci</button><div class="runtitle"><b>${esc(r.title)}</b><small>${KIND[r.kind]}</small></div><span class="count">${r.pos + 1}/${r.items.length}</span></header>`;
+  const it = r.items[r.pos], Q = S.qIndex[it.q], t = Q.t, exam = deferred(r), answered = it.ch !== null;
+  let h = `<header class="runtop"><button class="close" data-act="exit-run">${ico("x")}Esci</button><div class="runtitle"><b>${esc(r.title)}</b>${runSub(r)}</div><span class="count">${r.pos + 1}/${r.items.length}</span></header>`;
   const doneCount = exam ? r.items.filter(x => x.ch !== null).length : r.pos + (answered ? 1 : 0);
   h += `<div class="progress" role="progressbar" aria-label="Avanzamento" aria-valuemin="0" aria-valuemax="${r.items.length}" aria-valuenow="${doneCount}"><span style="width:${(100 * doneCount / r.items.length).toFixed(1)}%"></span></div>`;
   if (!exam){
@@ -1556,7 +1888,7 @@ function viewRun(){
   h += `</div>`;
   if (!exam && answered){
     const ok = it.ch === it.c;
-    h += `<div class="fb ${ok ? "ok" : "ko"}" role="status"><b>${ok ? "Esatto!" : "Risposta sbagliata"}</b>${ok ? "" : "<span>La risposta corretta è quella in verde. Questa domanda finisce nel tuo archivio errori.</span>"}${Q.q.why ? `<span class="why">${esc(Q.q.why)}</span>` : ""}</div>`;
+    h += `<div class="fb ${ok ? "ok" : "ko"}" role="status"><b>${ok ? "Esatto!" : "Risposta sbagliata"}</b>${ok ? "" : `<span>La risposta corretta è quella in verde. ${r.practice ? "In prova libera non viene registrata." : "Questa domanda finisce nel tuo archivio errori."}</span>`}${Q.q.why ? `<span class="why">${esc(Q.q.why)}</span>` : ""}</div>`;
   }
   h += `</article>`;
   if (exam){
@@ -1565,15 +1897,18 @@ function viewRun(){
   }
   return h + `<p class="kbd">Tasti 1–4 o A–D per rispondere · Invio per andare avanti</p>`;
 }
+function runSub(r, suffix){
+  return r.practice ? `<span class="prpill">${ico("eyeoff")}${r.blind ? "Prova alla cieca" : "Prova libera"} · non registrata${suffix || ""}</span>` : `<small>${KIND[r.kind]}${suffix || ""}</small>`;
+}
 function runBar(){
   const r = S.run, it = r.items[r.pos], last = r.pos === r.items.length - 1;
   if (!it) return "";
   if (r.confirm === "submit"){
     const miss = r.items.filter(x => x.ch === null).length;
-    return `<div class="confirmbar"><p><b>${plural(miss, "domanda è", "domande sono")} senza risposta.</b> Vale come errore. Consegnare comunque?</p><div class="row"><button class="btn" data-act="cancel-run-confirm">Continua</button><button class="btn primary" data-act="submit-force">Consegna</button></div></div>`;
+    return `<div class="confirmbar"><p><b>${plural(miss, "domanda è", "domande sono")} senza risposta.</b> ${r.practice ? "Conta come sbagliata nel risultato." : "Vale come errore."} Consegnare comunque?</p><div class="row"><button class="btn" data-act="cancel-run-confirm">Continua</button><button class="btn primary" data-act="submit-force">Consegna</button></div></div>`;
   }
-  if (r.confirm === "exit") return `<div class="confirmbar"><p><b>Uscire dalla simulazione?</b> Le risposte date non verranno salvate.</p><div class="row"><button class="btn" data-act="cancel-run-confirm">Resta</button><button class="btn danger" data-act="exit-force">Esci</button></div></div>`;
-  if (r.kind === "exam"){
+  if (r.confirm === "exit") return `<div class="confirmbar"><p><b>${r.practice ? "Uscire dalla prova?" : "Uscire dalla simulazione?"}</b> ${r.practice ? "Perderai le risposte date finora." : "Le risposte date non verranno salvate."}</p><div class="row"><button class="btn" data-act="cancel-run-confirm">Resta</button><button class="btn danger" data-act="exit-force">Esci</button></div></div>`;
+  if (deferred(r)){
     return `<div class="actions"><button class="btn" data-act="prevq" aria-label="Domanda precedente" ${r.pos === 0 ? "disabled" : ""}>${ico("left")}</button>`
       + (last ? `<button class="btn primary" data-act="submit">Consegna</button><span></span>` : `<button class="btn primary" data-act="nextq">Avanti ${ico("right")}</button><button class="btn" data-act="submit">Consegna</button>`) + `</div>`;
   }
@@ -1581,15 +1916,15 @@ function runBar(){
   return `<div class="actions one"><button class="btn primary block" data-act="nextq" ${answered ? "" : "disabled"}>${answered ? (last ? "Vedi il risultato" : "Avanti") : "Scegli una risposta"}</button></div>`;
 }
 function viewResult(){
-  const r = S.run, exam = r.kind === "exam";
+  const r = S.run, exam = deferred(r);
   const ok = r.items.filter(x => x.ch === x.c).length, skip = r.items.filter(x => x.ch === null).length, ko = r.items.length - ok - skip;
   const p = r.items.length ? ok / r.items.length : 0, C = 2 * Math.PI * 52;
   const msg = p >= .9 ? "Ottimo lavoro" : p >= .7 ? "Ben fatto" : p >= .5 ? "Ci sei quasi" : "Continua così, la ripetizione paga";
-  let h = `<header class="runtop"><button class="close" data-act="exit-run">${ico("x")}Chiudi</button><div class="runtitle"><b>${esc(r.title)}</b><small>${KIND[r.kind]} · risultato</small></div><span></span></header>`;
+  let h = `<header class="runtop"><button class="close" data-act="exit-run">${ico("x")}Chiudi</button><div class="runtitle"><b>${esc(r.title)}</b>${runSub(r, " · risultato")}</div><span></span></header>`;
   h += `<section class="result"><div class="ring"><svg viewBox="0 0 120 120"><defs><linearGradient id="ring-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0"/><stop offset="1"/></linearGradient></defs><circle class="trk" cx="60" cy="60" r="52" stroke-width="10"/><circle class="val" cx="60" cy="60" r="52" stroke-width="10" stroke-dasharray="${(C * p).toFixed(1)} ${C.toFixed(1)}"/></svg><b>${pct(p)}</b></div>`
-    + `<h2>${msg}</h2><p class="muted">${ok} risposte corrette su ${r.items.length}</p>`
+    + `<h2>${msg}</h2><p class="muted">${ok} risposte corrette su ${r.items.length}</p>${r.practice ? `<p class="prnote">${ico("eyeoff")}Prova libera: risultato non salvato, errori e statistiche invariati</p>` : ""}`
     + `<div class="trio"><div class="k"><b>${ok}</b><span>corrette</span></div><div class="x"><b>${ko}</b><span>sbagliate</span></div><div><b>${skip}</b><span>senza risposta</span></div></div>`
-    + `<div class="row">${ko + skip ? `<button class="btn primary" data-act="review-run-errors">Ripassa questi errori</button>` : ""}<button class="btn" data-act="retry-run">Rifai il test</button><button class="btn" data-act="exit-run">Torna al progetto</button></div></section>`;
+    + `<div class="row">${ko + skip ? `<button class="btn ${r.practice ? "practice" : "primary"}" data-act="review-run-errors">${r.practice ? "Riprova gli errori" : "Ripassa questi errori"}</button>` : ""}<button class="btn" data-act="retry-run">Rifai il test</button><button class="btn" data-act="exit-run">Torna al progetto</button></div></section>`;
   const all = r.items.map((x, i) => Object.assign({n: i + 1}, x));
   const show = (exam && r.showAll) ? all : all.filter(x => x.ch !== x.c);
   h += `<section class="stack"><div class="ghead"><h3>${exam && r.showAll ? "Tutte le risposte" : "Da rivedere"}</h3>${exam ? `<div class="chips"><button class="chip" data-act="showall" data-v="0" aria-pressed="${!r.showAll}">Solo errori</button><button class="chip" data-act="showall" data-v="1" aria-pressed="${!!r.showAll}">Tutte</button></div>` : ""}</div>`;
@@ -1793,7 +2128,11 @@ function addCardFromForm(){
 
 /* ---------- actions ---------- */
 function copyPrompt(){
-  const done = () => toast("Richiesta copiata: incollala in Claude insieme al file della lezione.");
+  const done = () => {
+    toast("Richiesta copiata: incollala in Claude insieme al file della lezione.");
+    S.copyFlash = true; render();
+    setTimeout(() => { S.copyFlash = false; render(); }, 2200);
+  };
   const fallback = () => {
     const d = document.querySelector("details.more"); if (d) d.open = true;
     const pre = document.getElementById("prompt-text");
@@ -1802,7 +2141,12 @@ function copyPrompt(){
   };
   try { navigator.clipboard.writeText(PROMPT).then(done, fallback); } catch(e){ fallback(); }
 }
-function openProject(id){ S.view = "project"; S.pid = id; S.tab = "quiz"; S.sub = null; S.confirm = null; S.editQ = null; S.quizMode = "train"; S.simScope = "all"; S.errFilter = "all"; S.chartSel = null; F.view = "home"; F.deckId = null; F.study = null; render(); top(); }
+function openAux(view){
+  if (S.view === "project" && S.pid) S.back = {pid: S.pid, sub: S.sub, tab: S.tab};
+  else if (S.view !== "settings" && S.view !== "help") S.back = null;
+  S.view = view; S.bk = {}; render(); top();
+}
+function openProject(id){ S.view = "project"; S.pid = id; S.tab = "quiz"; S.pr.scope = "all"; S.sub = null; S.confirm = null; S.editQ = null; S.quizMode = "train"; S.simScope = "all"; S.errFilter = "all"; S.chartSel = null; F.view = "home"; F.deckId = null; F.study = null; render(); top(); }
 function deleteProject(){
   const p = proj(); if (!p) return;
   const ts = topicsOf(p.id), ds = decksOf(p.id), cs = S.cards.filter(c => ds.some(d => d.id === c.deckId));
@@ -1818,10 +2162,18 @@ document.addEventListener("click", ev => {
   switch (act){
     case "theme": toggleTheme(); break;
     case "theme-set": setTheme(el.getAttribute("data-v")); break;
-    case "app-settings": S.back = S.view === "project" && S.pid ? {pid: S.pid, sub: S.sub} : null; S.view = "settings"; S.bk = {}; render(); top(); break;
+    case "app-settings": openAux("settings"); break;
+    case "help": openAux("help"); break;
+    case "help-go": { const tg = document.getElementById(el.getAttribute("data-to")); if (tg) try { tg.scrollIntoView({behavior: calm() ? "auto" : "smooth", block: "start"}); } catch(e){} break; }
+    case "go-due": openProject(id); S.tab = "flash"; render(); break;
+    case "go-err": openProject(id); S.tab = "errors"; render(); break;
+    case "pr-scope": S.pr.scope = el.getAttribute("data-v"); render(); break;
+    case "pr-blind": S.pr.blind = el.getAttribute("data-v") === "1"; render(); break;
+    case "pr-n": S.pr.n = +el.getAttribute("data-v"); render(); break;
+    case "practice-start": startPractice(); break;
     case "settings-back": {
       const b = S.back; S.back = null; S.bk = {};
-      if (b && S.projects.some(p => p.id === b.pid)){ S.view = "project"; S.pid = b.pid; S.sub = b.sub; S.tab = "quiz"; } else { S.view = "home"; S.pid = null; S.sub = null; }
+      if (b && S.projects.some(p => p.id === b.pid)){ S.view = "project"; S.pid = b.pid; S.sub = b.sub; S.tab = b.tab || "quiz"; } else { S.view = "home"; S.pid = null; S.sub = null; }
       render(); top(); break;
     }
     case "export": doExport(); break;
@@ -1867,8 +2219,8 @@ document.addEventListener("click", ev => {
     case "exit-run": if (r) exitRun(false); else render(); break;
     case "exit-force": exitRun(true); break;
     case "cancel-run-confirm": if (r){ r.confirm = null; render(); } break;
-    case "retry-run": startRun(r.kind, r.items.map(it => it.q), {title: r.title, topicId: r.topicId, scope: r.scope}); break;
-    case "review-run-errors": startRun("errors", r.items.filter(it => it.ch !== it.c).map(it => it.q), {title: "Errori di: " + r.title}); break;
+    case "retry-run": startRun(r.kind, r.items.map(it => it.q), {title: r.title, topicId: r.topicId, scope: r.scope, practice: r.practice, blind: r.blind}); break;
+    case "review-run-errors": { const ids = r.items.filter(it => it.ch !== it.c).map(it => it.q); if (r.practice) startRun("practice", ids, {title: "Errori della prova", practice: true}); else startRun("errors", ids, {title: "Errori di: " + r.title}); break; }
     case "showall": if (r){ r.showAll = el.getAttribute("data-v") === "1"; render(); } break;
     case "chart-pt": S.chartSel = +el.getAttribute("data-i"); render(); break;
     /* flashcards */
@@ -1982,7 +2334,7 @@ document.addEventListener("keydown", ev => {
     const k = ev.key.toLowerCase(), map = {"1":0,"2":1,"3":2,"4":3,"a":0,"b":1,"c":2,"d":3};
     if (k in map){ ev.preventDefault(); choose(map[k]); }
     else if (ev.key === "Enter" || ev.key === "ArrowRight"){ if (t && t.tagName === "BUTTON" && ev.key === "Enter") return; ev.preventDefault(); nextQ(); }
-    else if (ev.key === "ArrowLeft" && r.kind === "exam"){ ev.preventDefault(); prevQ(); }
+    else if (ev.key === "ArrowLeft" && deferred(r)){ ev.preventDefault(); prevQ(); }
     else if (ev.key === "Escape") exitRun(false);
     return;
   }

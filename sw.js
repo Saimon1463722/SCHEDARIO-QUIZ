@@ -1,6 +1,6 @@
 /* Schedario Quiz service worker: the app shell is precached so the app opens offline;
    Google Fonts are cached on first use. Bump VERSION whenever a shell file changes. */
-const VERSION = "schedario-v2";
+const VERSION = "schedario-v3";
 const SHELL = [
   "./",
   "./index.html",

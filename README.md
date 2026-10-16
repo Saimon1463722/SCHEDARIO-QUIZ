@@ -3,6 +3,10 @@ Quiz, schede, flashcard
 
 App di studio in un'unica pagina (`index.html`): quiz a crocette, archivio errori, statistiche e flashcard con ripasso Leitner.
 
+- **Home**: saluto con i giorni di studio consecutivi e l'attività della settimana, riepilogo (domande, risposte corrette, errori, carte da ripassare) e i progetti.
+- **Prova libera** (in ogni progetto): test con correzione subito o alla cieca, scegliendo argomento e numero di domande, senza registrare errori o statistiche.
+- **Guida** (pulsante `?`): come chiedere le domande a Claude, il formato, le modalità di studio e le domande frequenti.
+
 ## App installabile (PWA)
 Funziona come app installabile e anche senza connessione:
 
