@@ -1,9 +1,22 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <title>Schedario Quiz</title>
+<meta name="description" content="Quiz a crocette, archivio errori, statistiche e flashcard per studiare ogni materia.">
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#F1F3F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D1218" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Schedario">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap">
+</head><body>
 <style>
 /* Layout: one centered column (max 720px). Home = grid of projects (one per subject); inside a project a fixed bottom tab bar
    (Quiz · Errori · Statistiche · Flashcard); tests take the whole view with the answer buttons in the bottom bar.
@@ -406,7 +419,8 @@ body.theming, body.theming *{transition:background-color .35s ease,color .35s ea
 .mark{background:var(--grad);box-shadow:0 8px 18px -8px var(--glow);transition:transform .4s var(--spring)}
 .brand:hover .mark{transform:rotate(-8deg) scale(1.06)}
 .brand > span:last-child{background:linear-gradient(90deg,var(--ink),color-mix(in srgb,var(--ink) 55%,var(--accent)));-webkit-background-clip:text;background-clip:text;color:transparent}
-.topr{display:flex;align-items:center;gap:8px}
+.topr{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.sync{white-space:nowrap}
 .iconbtn{transition:color .15s,border-color .15s,transform .25s var(--spring),box-shadow .2s}
 .iconbtn:hover{box-shadow:var(--shadow)}
 .iconbtn:active{transform:scale(.92)}
@@ -570,6 +584,10 @@ input:focus,textarea:focus,select:focus{box-shadow:0 0 0 4px color-mix(in srgb,v
 .sw:hover{transform:scale(1.12)}
 .sw[aria-pressed="true"]{transform:scale(1.08)}
 
+/* Installed app */
+.iosico{width:38px;height:38px;border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--accent);flex:none}
+@media (display-mode: standalone){ body{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent} input,textarea,.code,.qtext,.face-text{-webkit-user-select:text;user-select:text} }
+
 /* Toast & confetti */
 .toast{background:color-mix(in srgb,var(--ink) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:14px}
 .toast:not([hidden]){animation:toastIn .35s var(--spring)}
@@ -642,6 +660,8 @@ const ICON = {
   copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',
   edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
   sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  download:'<path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/>',
+  share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-1"/>',
   moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'
 };
 const ico = (n, cls) => `<svg class="icon${cls ? " " + cls : ""}" viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
@@ -941,6 +961,7 @@ function toggleTheme(){
   document.documentElement.setAttribute("data-theme", t);
   try { localStorage.setItem(THEME_KEY, t); } catch(e){}
   setTimeout(() => document.body.classList.remove("theming"), 450);
+  PWA.themeColor();
   render();
 }
 function screenKey(){
@@ -1009,9 +1030,10 @@ const swatches = (sel, act) => `<div class="swatches" role="group" aria-label="C
 /* ---------- Home ---------- */
 function viewHome(){
   const ps = S.projects.slice().sort((a, b) => (a.created || 0) - (b.created || 0));
-  let h = `<header class="top"><div class="brand"><span class="mark">${ico("flash")}</span><span>Schedario</span></div><div class="topr">${chip()}<button class="iconbtn" data-act="theme" aria-label="${isDark() ? "Passa al tema chiaro" : "Passa al tema scuro"}">${ico(isDark() ? "sun" : "moon")}</button></div></header>`;
+  let h = `<header class="top"><div class="brand"><span class="mark">${ico("flash")}</span><span>Schedario</span></div><div class="topr">${chip()}${PWA.prompt ? `<button class="btn sm primary" data-act="install">${ico("download")}Installa</button>` : ""}<button class="iconbtn" data-act="theme" aria-label="${isDark() ? "Passa al tema chiaro" : "Passa al tema scuro"}">${ico(isDark() ? "sun" : "moon")}</button></div></header>`;
   h += `<div class="pagehead"><h1>I tuoi progetti</h1><p>Un progetto per ogni materia o esame, con quiz, archivio errori, statistiche e flashcard.</p></div>`;
-  if (S.mode === "local") h += `<div class="banner info"><div class="bt">Stai usando l'app fuori dal tuo account Claude: i dati restano solo su questo dispositivo.</div></div>`;
+  if (PWA.iosHint()) h += `<div class="banner info"><span class="iosico">${ico("share")}</span><div class="bt"><b style="color:var(--ink)">Installa Schedario su iPhone</b><br>Tocca Condividi e poi “Aggiungi alla schermata Home”: funzionerà anche senza connessione.</div><button class="btn sm" data-act="ios-hint-off">Ok</button></div>`;
+  if (S.mode === "local" && !PWA.standalone()) h += `<div class="banner info"><div class="bt">Stai usando l'app fuori dal tuo account Claude: i dati restano solo su questo dispositivo.</div></div>`;
   h += `<div class="pgrid">`;
   ps.forEach(p => {
     const s = projSummary(p);
@@ -1463,6 +1485,8 @@ document.addEventListener("click", ev => {
   const act = el.getAttribute("data-act"), id = el.getAttribute("data-id"), r = S.run;
   switch (act){
     case "theme": toggleTheme(); break;
+    case "install": PWA.install(); break;
+    case "ios-hint-off": try { localStorage.setItem("schedario-ios-hint", "1"); } catch(e){} render(); break;
     case "home": S.view = "home"; S.pid = null; S.sub = null; render(); top(); break;
     case "open-proj": openProject(id); break;
     case "new-proj": S.home.newOpen = true; render(); { const n = document.getElementById("np-name"); if (n) n.focus(); } break;
@@ -1625,10 +1649,47 @@ document.addEventListener("keydown", ev => {
   }
 });
 
+/* ---------- installable app (PWA) ---------- */
+const PWA = {
+  prompt: null,
+  standalone: () => { try { return matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch(e){ return false; } },
+  iosHint(){
+    if (this.standalone() || window.claude) return false;
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    try { if (localStorage.getItem("schedario-ios-hint")) return false; } catch(e){}
+    return ios;
+  },
+  install(){
+    const p = this.prompt; if (!p) return;
+    this.prompt = null;
+    p.prompt();
+    p.userChoice.then(c => { if (c && c.outcome !== "accepted") toast("Puoi installarla quando vuoi dal menu del browser."); render(); }, () => render());
+  },
+  themeColor(){
+    const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+    if (bg) document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.setAttribute("content", bg); m.removeAttribute("media"); });
+  },
+  init(){
+    const forced = document.documentElement.getAttribute("data-theme");
+    if (forced) this.themeColor();
+    window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); this.prompt = e; render(); });
+    window.addEventListener("appinstalled", () => { this.prompt = null; toast("Schedario è installata: la trovi tra le tue app."); render(); });
+    window.addEventListener("offline", () => toast("Sei offline: l'app continua a funzionare e salva sul dispositivo."));
+    window.addEventListener("online", () => toast("Di nuovo online."));
+    if (window.claude || !("serviceWorker" in navigator) || !/^https?:$/.test(location.protocol)) return;
+    const reg = () => {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+      try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch(e){}
+    };
+    if (document.readyState === "complete") reg(); else window.addEventListener("load", reg);
+  }
+};
+
 /* ---------- start ---------- */
 function startLocal(){ store = localStore(); S.mode = "local"; render(); }
 (function init(){
   try { const t = localStorage.getItem(THEME_KEY); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch(e){}
+  PWA.init();
   const c = window.claude;
   if (!c || typeof c.use !== "function"){ startLocal(); return; }
   Promise.all([c.use("db"), c.use("user")]).then(([db, user]) => {
