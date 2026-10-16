@@ -1602,17 +1602,28 @@ function doExport(){
   if (!COLS.some(k => S[k].length)){ toast("Non ci sono ancora dati da esportare."); return; }
   const now = Date.now(), name = "schedario-backup-" + isoDay(now) + ".json", data = {};
   COLS.forEach(k => { data[k] = S[k]; });
+  let json;
+  try { json = JSON.stringify({app: BK_APP, format: BK_FORMAT, exported: now, data}, null, 2); } catch(e){ toast("Non sono riuscito a creare il file di backup."); return; }
+  const saved = () => {
+    try { localStorage.setItem(BK_LAST, String(now)); } catch(e){}
+    S.bkFlash = true; render();
+    setTimeout(() => { S.bkFlash = false; if (S.view === "settings") render(); }, 2400);
+    toast("Backup scaricato: " + name);
+  };
+  const c = window.claude;
+  if (c && typeof c.use === "function"){
+    // Inside Claude the frame cannot start downloads itself: the viewer confirms the save.
+    c.use("downloads").then(dl => dl ? dl.save({filename: name, data: json}) : Promise.reject({code: "unavailable"}))
+      .then(saved, e => { if (!e || e.code !== "declined") toast(e && e.code === "rate_limited" ? "C'è già un salvataggio in attesa: confermalo o riprova tra poco." : "Qui non posso scaricare file: apri l'app installata per esportare."); });
+    return;
+  }
   try {
-    const blob = new Blob([JSON.stringify({app: BK_APP, format: BK_FORMAT, exported: now, data}, null, 2)], {type: "application/json"});
-    const url = URL.createObjectURL(blob), a = document.createElement("a");
+    const url = URL.createObjectURL(new Blob([json], {type: "application/json"})), a = document.createElement("a");
     a.href = url; a.download = name; a.rel = "noopener"; a.style.display = "none";
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   } catch(e){ toast("Non sono riuscito a creare il file di backup."); return; }
-  try { localStorage.setItem(BK_LAST, String(now)); } catch(e){}
-  S.bkFlash = true; render();
-  setTimeout(() => { S.bkFlash = false; if (S.view === "settings") render(); }, 2400);
-  toast("Backup scaricato: " + name);
+  saved();
 }
 function pickImport(){
   document.querySelectorAll("input.bk-picker").forEach(x => x.remove());
