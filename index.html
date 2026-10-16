@@ -584,6 +584,101 @@ input:focus,textarea:focus,select:focus{box-shadow:0 0 0 4px color-mix(in srgb,v
 .sw:hover{transform:scale(1.12)}
 .sw[aria-pressed="true"]{transform:scale(1.08)}
 
+/* App settings & backup */
+.min0{min-width:0;flex:1}
+.ell{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.seg.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.iconbtn[data-act="app-settings"]:hover .icon{transform:rotate(60deg)}
+.setlink{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);transition:transform .25s var(--ease),box-shadow .25s,border-color .2s}
+.setlink:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.setlink:active{transform:scale(.99)}
+.setlink:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.setlink b{display:block;font-weight:700}
+.setlink small{display:block;font-size:.84rem;color:var(--muted)}
+.setlink .chev{color:var(--faint);transition:transform .2s var(--ease)}
+.setlink:hover .chev{transform:translateX(3px);color:var(--accent)}
+.si,.bk-ico{width:40px;height:40px;border-radius:12px;background:var(--grad);color:var(--accent-ink);display:grid;place-items:center;flex:none;box-shadow:0 8px 16px -8px var(--glow)}
+.bk-ico{width:44px;height:44px;border-radius:13px}
+.backup{position:relative}
+.bk-head{display:flex;align-items:center;gap:12px}
+.bk-head h2{font-size:1.15rem}
+.bk-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.bk-btn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);min-width:0;transition:transform .2s var(--ease),border-color .2s,background .2s,box-shadow .2s}
+.bk-btn b{display:block;font-weight:700;font-size:.95rem;line-height:1.25}
+.bk-btn small{display:block;font-size:.76rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk-btn .bi{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);flex:none;transition:background .2s,color .2s}
+.bk-btn .bi .icon{transition:transform .3s var(--spring)}
+.bk-btn:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft);transform:translateY(-2px);box-shadow:0 10px 20px -14px var(--glow)}
+.bk-btn:hover:not(:disabled) .bi{background:var(--grad);color:var(--accent-ink)}
+.bk-btn.exp:hover:not(:disabled) .bi .icon{transform:translateY(2px)}
+.bk-btn.imp:hover .bi .icon{transform:translateY(-2px)}
+.bk-btn:active:not(:disabled){transform:scale(.97)}
+.bk-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.bk-btn:disabled{opacity:.5;cursor:not-allowed}
+.bk-btn.done{border-color:var(--ok);background:var(--ok-soft)}
+.bk-btn.done .bi{background:var(--ok);color:var(--ok-ink);animation:bump .5s var(--spring)}
+.bk-btn.done b{color:var(--ok)}
+.bk-last{font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:7px}
+.bk-last::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.bk-last.old::before{background:var(--t6)}
+.backup .kbd{text-align:left;margin-top:-6px}
+.bk-drop{position:absolute;inset:0;border-radius:inherit;display:none;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:color-mix(in srgb,var(--accent-soft) 90%,transparent);border:2px dashed var(--accent);color:var(--accent);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:2;pointer-events:none}
+.bk-drop .icon{width:30px;height:30px;animation:bob 1s ease-in-out infinite}
+body.dropping .bk-drop{display:flex;animation:fadeIn .2s ease}
+@keyframes bob{50%{transform:translateY(-5px)}}
+.bk-panel.fresh{animation:cardIn .4s var(--ease)}
+.bk-file{display:flex;align-items:center;gap:12px;min-width:0}
+.bk-file .hint{display:block}
+.bk-fico{width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.bk-fico.ko{background:var(--ko-soft);color:var(--ko)}
+.okbadge{flex:none;display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:700;color:var(--ok);background:var(--ok-soft);padding:4px 10px;border-radius:999px}
+.okbadge .icon{width:14px;height:14px;stroke-width:3}
+.bk-review.fresh .okbadge{animation:bump .5s var(--spring) .25s backwards}
+.bk-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.bk-counts div{background:var(--surface-2);border-radius:12px;padding:9px 6px 8px;text-align:center;min-width:0}
+.bk-counts b{display:block;font-family:var(--display);font-size:1.25rem;line-height:1.2}
+.bk-counts span{font-size:.74rem;color:var(--muted)}
+.bk-counts .zero{opacity:.55}
+.bk-review.fresh .bk-counts div{animation:cardIn .4s var(--ease) backwards}
+.bk-review.fresh .bk-counts div:nth-child(2){animation-delay:.04s}.bk-review.fresh .bk-counts div:nth-child(3){animation-delay:.08s}
+.bk-review.fresh .bk-counts div:nth-child(4){animation-delay:.12s}.bk-review.fresh .bk-counts div:nth-child(5){animation-delay:.16s}
+.bk-review.fresh .bk-counts div:nth-child(6){animation-delay:.2s}
+.bk-modes{display:flex;flex-direction:column;gap:8px}
+.bk-mode{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line-2);background:var(--surface);transition:border-color .2s,background .2s,transform .15s var(--ease)}
+.bk-mode:hover{border-color:var(--faint)}
+.bk-mode:active{transform:scale(.99)}
+.bk-mode:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.bk-mode b{display:block;font-weight:700}
+.bk-mode small{display:block;font-size:.82rem;color:var(--muted);line-height:1.4}
+.bk-mode .mi{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--surface-2);color:var(--muted);transition:background .2s,color .2s}
+.bk-mode .radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-2);display:grid;place-items:center;color:var(--accent)}
+.bk-mode .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:currentColor;transform:scale(0)}
+.bk-mode[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.bk-mode[aria-checked="true"] .mi{background:var(--grad);color:var(--accent-ink)}
+.bk-mode[aria-checked="true"] .radio{border-color:currentColor}
+.bk-mode[aria-checked="true"] .radio::after{transform:scale(1);animation:iconIn .35s var(--spring)}
+.bk-mode.danger .radio{color:var(--ko)}
+.bk-mode.danger[aria-checked="true"]{border-color:var(--ko);background:var(--ko-soft)}
+.bk-mode.danger[aria-checked="true"] .mi{background:var(--ko);color:var(--ko-ink)}
+.bk-caution{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--ink);background:var(--ko-soft);border-radius:12px;padding:10px 12px;animation:fadeUp .3s var(--ease)}
+.bk-caution > .icon{color:var(--ko);margin-top:2px}
+.bk-caution .link{padding:0;font-size:inherit}
+.btn.armed{animation:armed 1.1s ease-in-out infinite}
+@keyframes armed{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ko) 45%,transparent)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--ko) 0%,transparent)}}
+.bk-error{border-color:color-mix(in srgb,var(--ko) 40%,var(--line))}
+.bk-error.fresh{animation:shake .45s var(--ease)}
+.bk-errs{display:flex;flex-direction:column;gap:6px}
+.bk-errs li{display:flex;gap:9px;font-size:.92rem;line-height:1.4;overflow-wrap:anywhere}
+.bk-errs li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ko);margin-top:.55em;flex:none}
+.bk-done{align-items:center;text-align:center}
+.donecheck{width:68px;height:68px}
+.donecheck circle{fill:var(--ok-soft);stroke:var(--ok);stroke-width:2.5}
+.donecheck path{fill:none;stroke:var(--ok);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40}
+.bk-done.fresh .donecheck{animation:iconIn .5s var(--spring)}
+.bk-done.fresh .donecheck path{animation:drawck .5s var(--ease) .25s backwards}
+@keyframes drawck{from{stroke-dashoffset:40}}
+@media (max-width:360px){.bk-actions{grid-template-columns:1fr}}
+
 /* Installed app */
 .iosico{width:38px;height:38px;border-radius:11px;background:var(--surface);display:grid;place-items:center;color:var(--accent);flex:none}
 @media (display-mode: standalone){ body{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent} input,textarea,.code,.qtext,.face-text{-webkit-user-select:text;user-select:text} }
@@ -591,6 +686,7 @@ input:focus,textarea:focus,select:focus{box-shadow:0 0 0 4px color-mix(in srgb,v
 /* Toast & confetti */
 .toast{background:color-mix(in srgb,var(--ink) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:14px}
 .toast:not([hidden]){animation:toastIn .35s var(--spring)}
+#bar[hidden] ~ .toast{bottom:calc(24px + env(safe-area-inset-bottom, 0px))}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,14px) scale(.96)}}
 .confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
 .loading{animation:breathe 1.6s ease-in-out infinite}
@@ -662,6 +758,12 @@ const ICON = {
   sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
   download:'<path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/>',
   share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-1"/>',
+  upload:'<path d="M12 16V5M7 9.5l5-5 5 5M5 20h14"/>',
+  db:'<ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5V12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V5.5"/><path d="M4.5 12v6.5c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V12"/>',
+  file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+  alert:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5V13M12 16.5v.01"/>',
+  layers:'<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',
+  swap:'<path d="M4 8h15l-3.5-3.5"/><path d="M20 16H5l3.5 3.5"/>',
   moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'
 };
 const ico = (n, cls) => `<svg class="icon${cls ? " " + cls : ""}" viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
@@ -671,7 +773,7 @@ const S = {
   quizMode: "train", simScope: "all", errFilter: "all", chartSel: null,
   projects: [], topics: [], attempts: [], decks: [], cards: [], qIndex: {}, run: null,
   home: {newOpen: false, newColor: "c3"},
-  imp: {newTitle: ""}, add: {target: ""}, projColor: null,
+  imp: {newTitle: ""}, add: {target: ""}, projColor: null, bk: {}, back: null, bkFlash: false,
   fl: {view:"home", deckId:null, study:null, newDeckOpen:false, newDeckColor:"c3", editCard:null, confirm:null, renameDeck:false, renameColor:null, importOpen:false, search:""}
 };
 const F = S.fl;
@@ -739,15 +841,33 @@ function dbStore(db, id){
   COLS.forEach(k => cols[k].onSnapshot(s => { S[k] = s.docs.map(docObj); if (k === "topics") indexTopics(); got[k] = true; ready(); }, onErr));
   return {
     put(col, o){ upsert(S[col], o); if (col === "topics") indexTopics(); render(); return queue(col + "/" + o.id, () => cols[col].doc(o.id).set(o)); },
-    del(col, oid){ S[col] = S[col].filter(x => x.id !== oid); if (col === "topics") indexTopics(); render(); return queue(col + "/" + oid, () => cols[col].doc(oid).delete()); }
+    del(col, oid){ S[col] = S[col].filter(x => x.id !== oid); if (col === "topics") indexTopics(); render(); return queue(col + "/" + oid, () => cols[col].doc(oid).delete()); },
+    bulk(next){
+      const ops = [];
+      COLS.forEach(k => {
+        const keep = new Set(next[k].map(o => o.id)), cur = new Map(S[k].map(o => [o.id, o]));
+        S[k].forEach(o => { if (!keep.has(o.id)) ops.push([k + "/" + o.id, () => cols[k].doc(o.id).delete()]); });
+        next[k].forEach(o => { const c = cur.get(o.id); if (!c || JSON.stringify(c) !== JSON.stringify(o)) ops.push([k + "/" + o.id, () => cols[k].doc(o.id).set(o)]); });
+        S[k] = next[k];
+      });
+      indexTopics(); render();
+      let p = Promise.resolve();
+      for (let i = 0; i < ops.length; i += 25){ const chunk = ops.slice(i, i + 25); p = p.then(() => Promise.all(chunk.map(([key, fn]) => queue(key, fn)))); }
+      return p;
+    }
   };
 }
 function localStore(){
   try { const raw = localStorage.getItem(LS_KEY); if (raw){ const d = JSON.parse(raw); COLS.forEach(k => { S[k] = d[k] || []; }); indexTopics(); } } catch(e){}
-  const save = () => { try { const o = {}; COLS.forEach(k => { o[k] = S[k]; }); localStorage.setItem(LS_KEY, JSON.stringify(o)); } catch(e){} };
+  const save = () => { try { const o = {}; COLS.forEach(k => { o[k] = S[k]; }); localStorage.setItem(LS_KEY, JSON.stringify(o)); return true; } catch(e){ return false; } };
   return {
     put(col, o){ upsert(S[col], o); if (col === "topics") indexTopics(); save(); render(); return Promise.resolve(); },
-    del(col, oid){ S[col] = S[col].filter(x => x.id !== oid); if (col === "topics") indexTopics(); save(); render(); return Promise.resolve(); }
+    del(col, oid){ S[col] = S[col].filter(x => x.id !== oid); if (col === "topics") indexTopics(); save(); render(); return Promise.resolve(); },
+    bulk(next){
+      const prev = {}; COLS.forEach(k => { prev[k] = S[k]; S[k] = next[k]; }); indexTopics();
+      if (!save()){ COLS.forEach(k => { S[k] = prev[k]; }); indexTopics(); render(); return Promise.reject(new Error("quota")); }
+      render(); return Promise.resolve();
+    }
   };
 }
 function seq(list, fn){ let p = Promise.resolve(); list.forEach(x => { p = p.then(() => fn(x)); }); return p; }
@@ -937,7 +1057,8 @@ function render(){
       else html = viewFlash();
       bar = tabBar();
     }
-  } else { S.view = "home"; S.pid = null; html = viewHome(); }
+  } else if (S.view === "settings") html = viewSettings();
+  else { S.view = "home"; S.pid = null; html = viewHome(); }
   $app.innerHTML = html;
   $bar.innerHTML = bar ? '<div class="bar-in">' + bar + '</div>' : "";
   $bar.hidden = !bar;
@@ -955,15 +1076,16 @@ const THEME_KEY = "schedario-theme";
 let lastScreen = null, lastFlip = null, lastProgKey = null, lastProgW = null;
 const calm = () => { try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){ return false; } };
 const isDark = () => { const t = document.documentElement.getAttribute("data-theme"); if (t) return t === "dark"; try { return matchMedia("(prefers-color-scheme: dark)").matches; } catch(e){ return false; } };
-function toggleTheme(){
-  const t = isDark() ? "light" : "dark";
+function setTheme(t){
   document.body.classList.add("theming");
-  document.documentElement.setAttribute("data-theme", t);
-  try { localStorage.setItem(THEME_KEY, t); } catch(e){}
+  if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  else document.documentElement.removeAttribute("data-theme");
+  try { if (t === "light" || t === "dark") localStorage.setItem(THEME_KEY, t); else localStorage.removeItem(THEME_KEY); } catch(e){}
   setTimeout(() => document.body.classList.remove("theming"), 450);
   PWA.themeColor();
   render();
 }
+const toggleTheme = () => setTheme(isDark() ? "light" : "dark");
 function screenKey(){
   if (S.mode === "loading") return "loading";
   if (S.run) return "run|" + S.run.id + "|" + (S.run.done ? "done" : S.run.pos);
@@ -1030,7 +1152,7 @@ const swatches = (sel, act) => `<div class="swatches" role="group" aria-label="C
 /* ---------- Home ---------- */
 function viewHome(){
   const ps = S.projects.slice().sort((a, b) => (a.created || 0) - (b.created || 0));
-  let h = `<header class="top"><div class="brand"><span class="mark">${ico("flash")}</span><span>Schedario</span></div><div class="topr">${chip()}${PWA.prompt ? `<button class="btn sm primary" data-act="install">${ico("download")}Installa</button>` : ""}<button class="iconbtn" data-act="theme" aria-label="${isDark() ? "Passa al tema chiaro" : "Passa al tema scuro"}">${ico(isDark() ? "sun" : "moon")}</button></div></header>`;
+  let h = `<header class="top"><div class="brand"><span class="mark">${ico("flash")}</span><span>Schedario</span></div><div class="topr">${chip()}${PWA.prompt ? `<button class="btn sm primary" data-act="install">${ico("download")}Installa</button>` : ""}<button class="iconbtn" data-act="theme" aria-label="${isDark() ? "Passa al tema chiaro" : "Passa al tema scuro"}">${ico(isDark() ? "sun" : "moon")}</button><button class="iconbtn" data-act="app-settings" aria-label="Impostazioni e backup">${ico("gear")}</button></div></header>`;
   h += `<div class="pagehead"><h1>I tuoi progetti</h1><p>Un progetto per ogni materia o esame, con quiz, archivio errori, statistiche e flashcard.</p></div>`;
   if (PWA.iosHint()) h += `<div class="banner info"><span class="iosico">${ico("share")}</span><div class="bt"><b style="color:var(--ink)">Installa Schedario su iPhone</b><br>Tocca Condividi e poi “Aggiungi alla schermata Home”: funzionerà anche senza connessione.</div><button class="btn sm" data-act="ios-hint-off">Ok</button></div>`;
   if (S.mode === "local" && !PWA.standalone()) h += `<div class="banner info"><div class="bt">Stai usando l'app fuori dal tuo account Claude: i dati restano solo su questo dispositivo.</div></div>`;
@@ -1052,6 +1174,215 @@ function viewHome(){
   </ol><button class="btn soft" data-act="copy-prompt">${ico("copy")}Copia la richiesta per Claude</button>${promptBox()}</section>`;
   return h;
 }
+
+/* ---------- App settings & backup ---------- */
+const BK_APP = "schedario-quiz", BK_FORMAT = 1, BK_LAST = "schedario-last-backup", BK_MAX = 25 * 1024 * 1024;
+const BK_LABEL = {projects: "Progetto", topics: "Argomento", attempts: "Test", decks: "Mazzo", cards: "Carta"};
+const isObj = v => !!v && typeof v === "object" && !Array.isArray(v);
+const okId = v => typeof v === "string" && v.length > 0 && v.length <= 128 && v.indexOf("/") < 0 && v !== "." && v !== "..";
+const okStr = (v, need) => typeof v === "string" && (!need || v.trim() !== "");
+const okOptStr = v => v == null || typeof v === "string";
+const okNum = v => v == null || (typeof v === "number" && isFinite(v));
+const BK_CHECK = {
+  projects: o => !okStr(o.name, true) ? "manca il nome" : !okOptStr(o.color) ? "colore non valido" : !okNum(o.created) ? "data non valida" : null,
+  topics: o => {
+    if (!okId(o.projectId)) return "manca il progetto di appartenenza";
+    if (!okStr(o.title, true)) return "manca il titolo";
+    if (!okOptStr(o.code) || !okOptStr(o.group) || !okOptStr(o.color) || !okNum(o.order) || !okNum(o.created)) return "dati dell'argomento non validi";
+    if (!Array.isArray(o.questions)) return "l'elenco delle domande non è valido";
+    for (let j = 0; j < o.questions.length; j++){
+      const q = o.questions[j], at = "domanda " + (j + 1) + ", ";
+      if (!isObj(q) || !okId(q.id)) return at + "identificativo mancante";
+      if (!okStr(q.q, true)) return at + "manca il testo";
+      if (!okStr(q.a, true)) return at + "manca la risposta giusta";
+      if (!Array.isArray(q.w) || q.w.length < 3 || !q.w.every(w => okStr(w, true))) return at + "servono tre risposte sbagliate";
+      if (!okOptStr(q.why)) return at + "nota non valida";
+    }
+    return null;
+  },
+  attempts: o => {
+    if (o.answers != null && (!Array.isArray(o.answers) || !o.answers.every(x => isObj(x) && okStr(x.q)))) return "risposte non valide";
+    if (!okNum(o.total) || !okNum(o.correct) || !okNum(o.answered) || !okNum(o.started) || !okNum(o.ended)) return "numeri non validi";
+    if (o.complete && (typeof o.total !== "number" || typeof o.correct !== "number")) return "punteggio mancante";
+    if (!okOptStr(o.kind) || !okOptStr(o.title)) return "dati del test non validi";
+    return null;
+  },
+  decks: o => !okId(o.projectId) ? "manca il progetto di appartenenza" : !okStr(o.name, true) ? "manca il nome" : !okOptStr(o.color) ? "colore non valido" : null,
+  cards: o => {
+    if (!okId(o.deckId)) return "manca il mazzo di appartenenza";
+    if (!okStr(o.front, true) || !okStr(o.back, true)) return "servono fronte e retro";
+    if (!okNum(o.box) || (o.box != null && (o.box < 1 || o.box > 5))) return "scatola non valida";
+    if (!okNum(o.due) || !okNum(o.created) || !okNum(o.last)) return "date non valide";
+    return null;
+  }
+};
+function validateBackup(raw){
+  if (!isObj(raw)) return {ok: false, errors: ["Il file non contiene un backup di Schedario."]};
+  if (raw.app != null && raw.app !== BK_APP) return {ok: false, errors: ["Il file è stato creato da un'altra app, non da Schedario."]};
+  if (typeof raw.format === "number" && raw.format > BK_FORMAT) return {ok: false, errors: ["Il backup viene da una versione più recente di Schedario: aggiorna l'app e riprova."]};
+  const src = isObj(raw.data) ? raw.data : raw, keys = COLS.filter(k => k in src);
+  if (!keys.length) return {ok: false, errors: ["Il file non contiene progetti, domande o flashcard di Schedario."]};
+  const errors = [], warnings = [], data = {}; let bad = 0, dup = 0;
+  COLS.forEach(k => { data[k] = []; });
+  keys.forEach(k => {
+    if (!Array.isArray(src[k])){ bad++; if (errors.length < 4) errors.push(`La sezione “${k}” non è un elenco.`); return; }
+    const seen = new Map();
+    src[k].forEach((o, i) => {
+      const why = !isObj(o) ? "non è un elemento valido" : !okId(o.id) ? "identificativo mancante o non valido" : BK_CHECK[k](o);
+      if (why){
+        bad++;
+        const nm = isObj(o) && (typeof o.name === "string" ? o.name : typeof o.title === "string" ? o.title : "");
+        if (errors.length < 4) errors.push(`${BK_LABEL[k]} n. ${i + 1}${nm ? ` (“${nm.slice(0, 40)}”)` : ""}: ${why}.`);
+        return;
+      }
+      if (seen.has(o.id)) dup++;
+      seen.set(o.id, o);
+    });
+    data[k] = [...seen.values()];
+  });
+  if (bad > errors.length) errors.push(`E ${plural(bad - errors.length, "altro problema", "altri problemi")}.`);
+  if (bad) return {ok: false, errors};
+  if (!COLS.some(k => data[k].length)) return {ok: false, errors: ["Il backup è vuoto: non c'è niente da importare."]};
+  if (dup) warnings.push(plural(dup, "elemento compare due volte: tengo l'ultima versione", "elementi compaiono due volte: tengo l'ultima versione") + ".");
+  return {ok: true, data, warnings, exported: typeof raw.exported === "number" && raw.exported > 0 ? raw.exported : null};
+}
+function planBackup(data, mode){
+  const merge = mode === "merge";
+  const pids = new Set(data.projects.map(p => p.id).concat(merge ? S.projects.map(p => p.id) : []));
+  const topics = data.topics.filter(t => pids.has(t.projectId)), decks = data.decks.filter(d => pids.has(d.projectId));
+  const dids = new Set(decks.map(d => d.id).concat(merge ? S.decks.map(d => d.id) : []));
+  const cards = data.cards.filter(c => dids.has(c.deckId));
+  const inc = {projects: data.projects, topics, attempts: data.attempts, decks, cards}, next = {};
+  let added = 0, updated = 0;
+  COLS.forEach(k => {
+    const m = new Map((merge ? S[k] : []).map(x => [x.id, x]));
+    inc[k].forEach(x => { const old = m.get(x.id); if (!old) added++; else if (JSON.stringify(old) !== JSON.stringify(x)) updated++; m.set(x.id, x); });
+    next[k] = [...m.values()];
+  });
+  return {next, added, updated, skipped: data.topics.length - topics.length + data.decks.length - decks.length + data.cards.length - cards.length};
+}
+const pad2 = n => String(n).padStart(2, "0");
+const isoDay = t => { const d = new Date(t); return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); };
+const fmtLong = t => new Date(t).toLocaleDateString("it-IT", {day: "numeric", month: "long", year: "numeric"});
+const fmtSize = n => n < 1024 ? n + " B" : n < 1048576 ? Math.round(n / 1024) + " KB" : (n / 1048576).toFixed(1) + " MB";
+const dataCounts = d => ({p: d.projects.length, t: d.topics.length, q: d.topics.reduce((s, t) => s + (t.questions || []).length, 0), d: d.decks.length, c: d.cards.length, a: d.attempts.filter(a => a.complete).length});
+function doExport(){
+  if (!COLS.some(k => S[k].length)){ toast("Non ci sono ancora dati da esportare."); return; }
+  const now = Date.now(), name = "schedario-backup-" + isoDay(now) + ".json", data = {};
+  COLS.forEach(k => { data[k] = S[k]; });
+  try {
+    const blob = new Blob([JSON.stringify({app: BK_APP, format: BK_FORMAT, exported: now, data}, null, 2)], {type: "application/json"});
+    const url = URL.createObjectURL(blob), a = document.createElement("a");
+    a.href = url; a.download = name; a.rel = "noopener"; a.style.display = "none";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  } catch(e){ toast("Non sono riuscito a creare il file di backup."); return; }
+  try { localStorage.setItem(BK_LAST, String(now)); } catch(e){}
+  S.bkFlash = true; render();
+  setTimeout(() => { S.bkFlash = false; if (S.view === "settings") render(); }, 2400);
+  toast("Backup scaricato: " + name);
+}
+function pickImport(){
+  document.querySelectorAll("input.bk-picker").forEach(x => x.remove());
+  const inp = document.createElement("input");
+  inp.type = "file"; inp.className = "bk-picker"; inp.hidden = true;
+  if (!/iphone|ipad|ipod/i.test(navigator.userAgent)) inp.accept = ".json,application/json";
+  inp.addEventListener("change", () => { const f = inp.files && inp.files[0]; inp.remove(); if (f) readBackup(f); });
+  document.body.appendChild(inp); inp.click();
+}
+function showBk(state){
+  S.bk = Object.assign(state, {fresh: true}); render(); S.bk.fresh = false;
+  const el = document.getElementById("bk-panel");
+  if (el && el.scrollIntoView) try { el.scrollIntoView({behavior: calm() ? "auto" : "smooth", block: "nearest"}); } catch(e){}
+}
+function readBackup(file){
+  const name = file.name || "backup.json", fail = msg => showBk({error: {name, errors: [msg]}});
+  if (!file.size) return fail("Il file è vuoto.");
+  if (file.size > BK_MAX) return fail("Il file è troppo grande per essere un backup di Schedario.");
+  S.bk = {loading: name}; render();
+  const rd = new FileReader();
+  rd.onerror = () => fail("Non riesco a leggere il file.");
+  rd.onload = () => {
+    let raw; try { raw = JSON.parse(String(rd.result).replace(/^﻿/, "")); } catch(e){ return fail("Il file non è in formato JSON valido."); }
+    const v = validateBackup(raw);
+    showBk(v.ok ? {review: Object.assign({name, size: file.size}, v), mode: "merge"} : {error: {name, errors: v.errors}});
+  };
+  rd.readAsText(file);
+}
+function applyImport(){
+  const b = S.bk; if (!b.review) return;
+  if (b.mode === "replace" && COLS.some(k => S[k].length) && !b.armed){
+    b.armed = true; render();
+    setTimeout(() => { if (S.bk === b && b.armed){ b.armed = false; render(); } }, 4000);
+    return;
+  }
+  const plan = planBackup(b.review.data, b.mode), mode = b.mode;
+  S.run = null; S.pid = null; S.sub = null; S.back = null; S.confirm = null; S.editQ = null; S.errFilter = "all"; S.chartSel = null;
+  Object.assign(F, {view: "home", deckId: null, study: null, confirm: null, editCard: null, renameDeck: false, search: ""});
+  S.bk = {done: {mode, added: plan.added, updated: plan.updated, skipped: plan.skipped}, fresh: true};
+  store.bulk(plan.next).then(() => {
+    toast(mode === "merge" ? "Dati uniti al tuo schedario." : "Dati sostituiti con quelli del backup.");
+  }, () => {
+    showBk({error: {name: b.review.name, errors: ["Non c'è abbastanza spazio sul dispositivo per salvare questo backup."]}});
+  });
+  S.bk.fresh = false;
+}
+function lastBackupLine(){
+  let t = 0; try { t = +localStorage.getItem(BK_LAST) || 0; } catch(e){}
+  if (!t) return `<p class="bk-last old">Non hai ancora fatto un backup</p>`;
+  const days = Math.round((sod(Date.now()) - sod(t)) / DAY), when = days <= 0 ? "oggi" : days === 1 ? "ieri" : fmtDate(t);
+  return `<p class="bk-last${days > 30 ? " old" : ""}">Ultimo backup: ${when}${days > 30 ? " · conviene farne uno nuovo" : ""}</p>`;
+}
+function viewSettings(){
+  const th = document.documentElement.getAttribute("data-theme") || "auto", bp = S.back && S.projects.find(x => x.id === S.back.pid);
+  const n = dataCounts(S), empty = !COLS.some(k => S[k].length);
+  let h = `<div class="backrow"><button class="link" data-act="settings-back">${ico("left")}${esc(bp ? bp.name : "Progetti")}</button>${chip()}</div>`;
+  h += `<div class="pagehead"><h1>Impostazioni</h1><p>Aspetto dell'app e copia di sicurezza dei tuoi dati.</p></div>`;
+  h += `<section class="panel"><h3>Aspetto</h3><div class="seg three" role="group" aria-label="Tema">${[["auto", "Automatico"], ["light", "Chiaro"], ["dark", "Scuro"]].map(([v, l]) => `<button data-act="theme-set" data-v="${v}" aria-pressed="${th === v}">${l}</button>`).join("")}</div></section>`;
+  h += `<section class="panel backup"><div class="bk-head"><span class="bk-ico">${ico("db")}</span><div class="min0"><h2>Backup dei dati</h2><p class="hint tnum">${empty ? "Ancora nessun dato salvato" : `${plural(n.p, "progetto", "progetti")} · ${plural(n.q, "domanda", "domande")} · ${plural(n.c, "carta", "carte")} · ${plural(n.a, "test", "test")}`}</p></div></div>`
+    + `<div class="bk-actions"><button class="bk-btn exp${S.bkFlash ? " done" : ""}" data-act="export" ${empty ? "disabled" : ""}><span class="bi">${ico(S.bkFlash ? "check" : "download")}</span><span class="min0"><b>${S.bkFlash ? "Scaricato" : "Esporta"}</b><small>Scarica .json</small></span></button>`
+    + `<button class="bk-btn imp" data-act="import-pick"><span class="bi">${ico("upload")}</span><span class="min0"><b>Importa</b><small>Carica .json</small></span></button></div>`
+    + (empty ? "" : lastBackupLine()) + `<p class="kbd">Puoi anche trascinare qui il file di backup</p>`
+    + `<div class="bk-drop" aria-hidden="true">${ico("upload")}<b>Rilascia il file per importarlo</b></div></section>`;
+  return h + bkPanel();
+}
+function bkPanel(){
+  const b = S.bk, fr = b.fresh ? " fresh" : "";
+  if (b.loading) return `<section class="panel bk-panel" id="bk-panel"><p class="loading">Controllo “${esc(b.loading)}”…</p></section>`;
+  if (b.error) return `<section class="panel bk-panel bk-error${fr}" id="bk-panel" role="alert"><div class="bk-file"><span class="bk-fico ko">${ico("alert")}</span><div class="min0"><b>File non valido</b><span class="hint ell">${esc(b.error.name)}</span></div></div><ul class="bk-errs">${b.error.errors.map(e => `<li>${esc(e)}</li>`).join("")}</ul><p class="hint">Non ho modificato niente: i tuoi dati sono al sicuro.</p><div class="row"><button class="btn primary" data-act="import-pick">${ico("upload")}Scegli un altro file</button><button class="btn" data-act="bk-cancel">Chiudi</button></div></section>`;
+  if (b.done){
+    const d = b.done, n = dataCounts(S);
+    const msg = d.mode === "merge" ? `${d.added || d.updated ? `${plural(d.added, "elemento aggiunto", "elementi aggiunti")}${d.updated ? " e " + plural(d.updated, "aggiornato", "aggiornati") : ""}` : "Nessuna novità: avevi già tutti questi dati"}. Ora hai ${plural(n.p, "progetto", "progetti")} e ${plural(n.q, "domanda", "domande")}.`
+      : `Ora hai ${plural(n.p, "progetto", "progetti")}, ${plural(n.q, "domanda", "domande")} e ${plural(n.c, "carta", "carte")}, come nel backup.`;
+    return `<section class="panel bk-panel bk-done${fr}" id="bk-panel" role="status"><svg class="donecheck" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="23"/><path d="m15.5 27 7 7 14-15"/></svg><h2>Importazione completata</h2><p class="muted tnum">${msg}</p>${d.skipped ? `<p class="hint">${plural(d.skipped, "elemento senza progetto o mazzo è stato saltato", "elementi senza progetto o mazzo sono stati saltati")}.</p>` : ""}<div class="row"><button class="btn primary" data-act="home">Vai ai progetti</button></div></section>`;
+  }
+  if (!b.review) return "";
+  const r = b.review, c = dataCounts(r.data), merge = b.mode === "merge", pm = planBackup(r.data, "merge"), plan = merge ? pm : planBackup(r.data, "replace");
+  const cur = dataCounts(S), hasCur = COLS.some(k => S[k].length);
+  const tiles = [[c.p, "progetti"], [c.t, "argomenti"], [c.q, "domande"], [c.d, "mazzi"], [c.c, "carte"], [c.a, "test"]];
+  const warns = r.warnings.slice();
+  if (plan.skipped) warns.push(plural(plan.skipped, "elemento senza progetto o mazzo verrà saltato", "elementi senza progetto o mazzo verranno saltati") + ".");
+  let h = `<section class="panel bk-panel bk-review${fr}" id="bk-panel" aria-label="Importa un backup"><div class="bk-file"><span class="bk-fico">${ico("file")}</span><div class="min0"><b class="ell">${esc(r.name)}</b><span class="hint">${r.exported ? "Backup del " + fmtLong(r.exported) : "Backup senza data"} · ${fmtSize(r.size)}</span></div><span class="okbadge">${ico("check")}Valido</span></div>`;
+  h += `<div class="bk-counts tnum">${tiles.map(([v, l]) => `<div${v ? "" : ' class="zero"'}><b>${v}</b><span>${l}</span></div>`).join("")}</div>`;
+  h += warns.map(w => `<p class="warn">${esc(w)}</p>`).join("");
+  h += `<div class="bk-modes" role="radiogroup" aria-label="Come importare">`
+    + `<button class="bk-mode" role="radio" aria-checked="${merge}" data-act="bk-mode" data-m="merge"><span class="mi">${ico("layers")}</span><span class="min0"><b>Unisci ai dati attuali</b><small class="tnum">${pm.added || pm.updated ? `${pm.added ? plural(pm.added, "elemento nuovo", "elementi nuovi") : ""}${pm.added && pm.updated ? " · " : ""}${pm.updated ? plural(pm.updated, "elemento aggiornato", "elementi aggiornati") + " con la versione del file" : ""}. Il resto dei tuoi dati rimane.` : "Hai già tutti questi dati: non cambierà niente."}</small></span><span class="radio"></span></button>`
+    + `<button class="bk-mode danger" role="radio" aria-checked="${!merge}" data-act="bk-mode" data-m="replace"><span class="mi">${ico("swap")}</span><span class="min0"><b>Sostituisci tutto</b><small class="tnum">${hasCur ? `Cancella i dati attuali (${plural(cur.p, "progetto", "progetti")}, ${plural(cur.q, "domanda", "domande")}, ${plural(cur.c, "carta", "carte")}) e tiene solo quelli del file.` : "Non hai ancora dati: verranno caricati quelli del file."}</small></span><span class="radio"></span></button></div>`;
+  if (!merge && hasCur) h += `<div class="bk-caution">${ico("alert")}<span>L'operazione non si può annullare. <button class="link" data-act="export">Esporta prima un backup</button></span></div>`;
+  h += `<div class="row"><button class="btn ${merge ? "primary" : "danger fill"}${b.armed ? " armed" : ""}" data-act="bk-apply">${merge ? ico("layers") + "Unisci i dati" : b.armed ? ico("alert") + "Sì, sostituisci" : ico("swap") + "Sostituisci i dati"}</button><button class="btn" data-act="bk-cancel">Annulla</button></div></section>`;
+  return h;
+}
+let dragDepth = 0;
+const hasFiles = ev => !!(ev.dataTransfer && Array.from(ev.dataTransfer.types || []).indexOf("Files") >= 0);
+const canDrop = ev => S.view === "settings" && !S.run && hasFiles(ev);
+document.addEventListener("dragenter", ev => { if (!canDrop(ev)) return; ev.preventDefault(); dragDepth++; document.body.classList.add("dropping"); });
+document.addEventListener("dragover", ev => { if (!canDrop(ev)) return; ev.preventDefault(); ev.dataTransfer.dropEffect = "copy"; });
+document.addEventListener("dragleave", () => { if (dragDepth && !--dragDepth) document.body.classList.remove("dropping"); });
+document.addEventListener("drop", ev => {
+  if (!canDrop(ev)) return;
+  ev.preventDefault(); dragDepth = 0; document.body.classList.remove("dropping");
+  const f = ev.dataTransfer.files && ev.dataTransfer.files[0]; if (f) readBackup(f);
+});
 
 /* ---------- Project: Quiz ---------- */
 function viewQuiz(){
@@ -1099,6 +1430,7 @@ function viewSub(){
   if (s.type === "settings"){
     let h = subHead("Impostazioni del progetto");
     h += `<form class="panel" data-form="proj-settings"><div><label for="p-name">Nome</label><input type="text" id="p-name" maxlength="80" value="${esc(p.name)}" autocomplete="off"></div><div><label>Colore</label>${swatches(S.projColor || p.color, "p-color")}</div><div class="row"><button class="btn primary" type="submit">Salva</button></div></form>`;
+    h += `<button class="setlink" data-act="app-settings"><span class="si">${ico("db")}</span><span class="min0"><b>Backup e ripristino</b><small>Esporta o importa tutti i dati dell'app</small></span><span class="chev">${ico("right")}</span></button>`;
     const nT = topicsOf(p.id).length, nD = decksOf(p.id).length;
     h += `<section class="panel"><h3>Elimina il progetto</h3><p class="muted">Cancella il progetto con ${plural(nT, "argomento", "argomenti")}, tutte le domande e ${plural(nD, "mazzo", "mazzi")} di flashcard.</p>`
       + (S.confirm === "proj" ? `<div class="confirm"><p><b>Eliminare “${esc(p.name)}”?</b> Non si può annullare.</p><div class="row"><button class="btn danger fill" data-act="del-proj">Elimina definitivamente</button><button class="btn" data-act="cancel-confirm">Annulla</button></div></div>` : `<div><button class="btn danger" data-act="ask-del-proj">Elimina progetto</button></div>`) + `</section>`;
@@ -1485,6 +1817,18 @@ document.addEventListener("click", ev => {
   const act = el.getAttribute("data-act"), id = el.getAttribute("data-id"), r = S.run;
   switch (act){
     case "theme": toggleTheme(); break;
+    case "theme-set": setTheme(el.getAttribute("data-v")); break;
+    case "app-settings": S.back = S.view === "project" && S.pid ? {pid: S.pid, sub: S.sub} : null; S.view = "settings"; S.bk = {}; render(); top(); break;
+    case "settings-back": {
+      const b = S.back; S.back = null; S.bk = {};
+      if (b && S.projects.some(p => p.id === b.pid)){ S.view = "project"; S.pid = b.pid; S.sub = b.sub; S.tab = "quiz"; } else { S.view = "home"; S.pid = null; S.sub = null; }
+      render(); top(); break;
+    }
+    case "export": doExport(); break;
+    case "import-pick": pickImport(); break;
+    case "bk-mode": if (S.bk.review){ S.bk.mode = el.getAttribute("data-m"); S.bk.armed = false; render(); } break;
+    case "bk-apply": applyImport(); break;
+    case "bk-cancel": S.bk = {}; render(); break;
     case "install": PWA.install(); break;
     case "ios-hint-off": try { localStorage.setItem("schedario-ios-hint", "1"); } catch(e){} render(); break;
     case "home": S.view = "home"; S.pid = null; S.sub = null; render(); top(); break;
@@ -1666,6 +2010,10 @@ const PWA = {
     p.userChoice.then(c => { if (c && c.outcome !== "accepted") toast("Puoi installarla quando vuoi dal menu del browser."); render(); }, () => render());
   },
   themeColor(){
+    if (!document.documentElement.getAttribute("data-theme")){
+      document.querySelectorAll('meta[name="theme-color"]').forEach((m, i) => { m.setAttribute("media", "(prefers-color-scheme: " + (i ? "dark" : "light") + ")"); m.setAttribute("content", i ? "#0D1218" : "#F1F3F6"); });
+      return;
+    }
     const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
     if (bg) document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.setAttribute("content", bg); m.removeAttribute("media"); });
   },

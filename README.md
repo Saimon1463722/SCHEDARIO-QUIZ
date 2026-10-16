@@ -12,6 +12,16 @@ Funziona come app installabile e anche senza connessione:
 
 I dati restano nel browser del dispositivo (localStorage): niente account e niente server.
 
+## Backup dei dati
+In **Impostazioni** (ingranaggio in home, oppure "Backup e ripristino" nelle impostazioni di un progetto):
+
+- **Esporta** scarica tutti i dati in `schedario-backup-AAAA-MM-GG.json`.
+- **Importa** carica un file di backup (anche trascinandolo sulla scheda). Prima controlla che sia valido e mostra cosa contiene, poi chiede se:
+  - **unire** i dati a quelli attuali (gli elementi nuovi si aggiungono, quelli con lo stesso identificativo prendono la versione del file);
+  - **sostituire** tutto (serve una seconda conferma).
+
+Così puoi spostare i dati da un dispositivo all'altro o tenerne una copia di sicurezza.
+
 ### Pubblicarla con GitHub Pages
 1. Su GitHub: **Settings → Pages → Build and deployment**, sorgente "Deploy from a branch", poi scegli il branch e la cartella `/ (root)`.
 2. Apri l'indirizzo `https://<utente>.github.io/<repo>/`.
